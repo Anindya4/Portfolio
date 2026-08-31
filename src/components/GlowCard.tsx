@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 
 interface GlowCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -7,17 +7,16 @@ interface GlowCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const GlowCard: React.FC<GlowCardProps> = ({ children, className = '', ...props }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
 
   return (
     <div
@@ -28,12 +27,12 @@ export const GlowCard: React.FC<GlowCardProps> = ({ children, className = '', ..
       className={`bento-card group relative ${className}`}
       {...props}
     >
-      {/* Ultra-soft feathered micro cursor glow */}
+      {/* Ultra-soft feathered micro cursor glow - GPU accelerated with CSS custom properties */}
       <div
         className="pointer-events-none absolute -inset-px rounded-[inherit] transition-opacity duration-300 z-0"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(75px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, transparent 80%)`,
+          background: 'radial-gradient(75px circle at var(--mouse-x, -100px) var(--mouse-y, -100px), rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, transparent 80%)',
         }}
       />
 

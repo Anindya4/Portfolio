@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, Globe, Compass, GraduationCap } from 'lucide-react';
-import { CAPABILITIES, PERSONAL_INFO, EDUCATION_DATA } from '../data/portfolioData';
-import { GlowCard } from './GlowCard';
+import { useState, useEffect } from "react";
+import { Clock, Globe, Compass, GraduationCap } from "lucide-react";
+import {
+  CAPABILITIES,
+  PERSONAL_INFO,
+  EDUCATION_DATA,
+} from "../data/portfolioData";
+import { GlowCard } from "./GlowCard";
 
 export const AboutBento = () => {
-  const [time, setTime] = useState<string>('');
+  const [time, setTime] = useState<string>("");
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
       setTime(
-        now.toLocaleTimeString('en-US', {
-          timeZone: 'Asia/Kolkata',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
+        now.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
           hour12: true,
-        })
+        }),
       );
     };
 
@@ -26,7 +30,10 @@ export const AboutBento = () => {
   }, []);
 
   return (
-    <section id="capabilities" className="py-20 md:py-28 relative border-b border-white/5 bg-zinc-950/20">
+    <section
+      id="capabilities"
+      className="py-20 md:py-28 relative border-b border-white/5 bg-zinc-950/20"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="mb-12">
@@ -40,7 +47,7 @@ export const AboutBento = () => {
         </div>
 
         {/* Bento Grid layout for capabilities */}
-        <div className="grid grid-cols-12 gap-5 sm:gap-6">
+        <div className="grid grid-cols-12 gap-5 sm:gap-6 ">
           {/* Card 1: Bio & Mathematical Rigor (Spans 7 cols) */}
           <GlowCard className="col-span-12 lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
             <div>
@@ -53,10 +60,11 @@ export const AboutBento = () => {
               </div>
 
               <h3 className="text-xl sm:text-2xl font-display font-semibold text-zinc-100 mb-4 leading-snug">
-                "Mathematical rigor grounds artificial intelligence into reliable engineering systems."
+                "Mathematical rigor grounds artificial intelligence into
+                reliable engineering systems."
               </h3>
 
-              <div className="space-y-3 text-sm text-zinc-300 leading-relaxed">
+              <div className="space-y-2 text-sm text-zinc-300 leading-relaxed">
                 {PERSONAL_INFO.bio.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
@@ -64,15 +72,41 @@ export const AboutBento = () => {
             </div>
 
             <div className="mt-8 pt-4 border-t border-white/5 flex flex-wrap gap-2 text-xs font-mono text-zinc-400">
-              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">PyTorch &amp; Deep Learning</span>
-              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">YOLOv5 Vision</span>
-              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">LangChain Agents</span>
-              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">FastAPI &amp; Docker</span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                Python
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                SQL
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                PyTorch &amp; Deep Learning
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                Computer Vision
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                FastAPI
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                Data Enginnering
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                React
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                JavaScript
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                OpenAI API
+              </span>
+              <span className="px-2.5 py-1 rounded bg-zinc-900 border border-white/5">
+                Git &amp; GitHub
+              </span>
             </div>
           </GlowCard>
 
           {/* Card 2: Live Local Time & Availability (Spans 5 cols) */}
-          <GlowCard className="col-span-12 lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-[#13151a]">
+          <GlowCard className="col-span-12 lg:col-span-5 self-start p-8 sm:p-10 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
                 <span className="flex items-center gap-2">
@@ -84,11 +118,13 @@ export const AboutBento = () => {
 
               <div className="my-4">
                 <div className="text-4xl sm:text-5xl font-mono font-bold tracking-tight text-zinc-100">
-                  {time || '09:30:00 AM'}
+                  {time || "09:30:00 AM"}
                 </div>
                 <div className="text-xs font-mono text-zinc-400 mt-2 flex items-center gap-2">
                   <Globe className="w-3.5 h-3.5 text-zinc-500" />
-                  <span>Indian Standard Time (IST / UTC+5:30) &bull; India</span>
+                  <span>
+                    Indian Standard Time (IST / UTC+5:30) &bull; India
+                  </span>
                 </div>
               </div>
             </div>
@@ -99,7 +135,8 @@ export const AboutBento = () => {
                 <span>Actively Seeking Roles</span>
               </div>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                Open for full-time Machine Learning Engineer, AI Developer, and Software Development Engineer (SDE) roles.
+                Open for full-time Machine Learning Engineer, AI Developer, and
+                Software Development Engineer (SDE) roles.
               </p>
             </div>
           </GlowCard>
@@ -116,10 +153,15 @@ export const AboutBento = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {EDUCATION_DATA.map((edu, idx) => (
-                <div key={idx} className="p-4 rounded-xl bg-zinc-900/50 border border-white/5 flex flex-col justify-between">
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl bg-zinc-900/50 border border-white/5 flex flex-col justify-between"
+                >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-1">
-                      <span className="text-xs font-mono text-zinc-400">{edu.period}</span>
+                      <span className="text-xs font-mono text-zinc-400">
+                        {edu.period}
+                      </span>
                       <span className="px-2 py-0.5 rounded bg-emerald-950/50 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-bold">
                         {edu.gpa}
                       </span>
@@ -148,7 +190,9 @@ export const AboutBento = () => {
               <div>
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-2 border-b border-white/5">
                   <span>{`0${index + 4}`}</span>
-                  <span className="text-zinc-500">{cap.items.length} Core Areas</span>
+                  <span className="text-zinc-500">
+                    {cap.items.length} Core Areas
+                  </span>
                 </div>
 
                 <h4 className="text-base font-display font-semibold text-zinc-100 mb-4">
@@ -157,7 +201,10 @@ export const AboutBento = () => {
 
                 <ul className="space-y-2.5">
                   {cap.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-xs text-zinc-300">
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-xs text-zinc-300"
+                    >
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 mt-1.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>

@@ -12,9 +12,9 @@ export const Hero = () => {
   const roles = [
     "Machine Learning Engineer",
     "Data Scientist & Analyst",
-    "Full-Stack Systems Developer",
-    "Computer Vision & NLP Specialist",
+    "Full-Stack Developer",
     "Data Engineer",
+    "Problem Solver",
   ];
 
   useEffect(() => {
@@ -65,14 +65,17 @@ export const Hero = () => {
   };
 
   const tickerItems = [
-    "Machine Learning & PyTorch",
-    "Computer Vision & YOLOv5",
-    "Data Science & Analytics",
-    "Full-Stack & React.js",
-    "FastAPI Microservices",
-    "LangChain & RAG Agents",
-    "Data Engineering & Selenium",
-    "Rigorous Mathematics (8.90 GPA)",
+    "Machine Learning",
+    "Computer Vision",
+    "Data Science",
+    "Data Analytics",
+    "Full-Stack Development",
+    "React.js",
+    "FastAPI",
+    "LangChain",
+    "Data Engineering",
+    "Rag Pipeline",
+    "MLOps",
   ];
 
   return (
@@ -115,14 +118,14 @@ export const Hero = () => {
               className="relative flex-shrink-0 cursor-pointer group"
               title="Click to view portrait"
             >
-              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-white/20 shadow-xl bg-zinc-900 ring-4 ring-white/5 transition-transform duration-300 group-hover:scale-105 group-hover:border-white/40">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white/20 shadow-xl bg-zinc-900 ring-4 ring-white/5 transition-transform duration-300 group-hover:scale-105 group-hover:border-white/40">
                 <img
-                  src="/img/photo.png"
+                  src="/img/final.png"
                   alt={PERSONAL_INFO.name}
                   className="w-full h-full object-cover object-top"
                 />
               </div>
-              <span className="absolute bottom-1 right-1 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-400 border-2 border-[#0b0c0e]" />
+              <span className="absolute bottom-2 right-2 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-400 border-2 border-[#0b0c0e]" />
             </motion.div>
 
             {/* Headline */}
@@ -252,10 +255,10 @@ export const Hero = () => {
               key={i}
               className="p-4 sm:p-5 rounded-xl bg-zinc-900/40 border border-white/5 transition-all"
             >
-              <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-zinc-100 mb-1">
+              <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-zinc-100 mb-1 flex items-center justify-center">
                 {stat.value}
               </div>
-              <div className="text-xs font-medium text-zinc-400">
+              <div className="text-xs font-medium text-zinc-400 flex items-center justify-center">
                 {stat.label}
               </div>
             </GlowCard>
@@ -310,7 +313,7 @@ export const Hero = () => {
               {/* Portrait Image (Medium Sized) */}
               <div className="w-full aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-zinc-950">
                 <img
-                  src="/img/photo.png"
+                  src="/img/final.png"
                   alt={PERSONAL_INFO.name}
                   className="w-90 h-90 object-cover object-top"
                 />

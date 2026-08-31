@@ -34,19 +34,22 @@ export const PERSONAL_INFO = {
   email: "anindyanandi.work@gmail.com",
   phone: "(+91) 6296689986",
   social: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
+    github: "https://github.com/Anindya4",
+    linkedin: "https://www.linkedin.com/in/anindyasnandi/",
     email: "mailto:anindyanandi.work@gmail.com",
   },
   stats: [
-    { label: "M.Sc. CS GPA", value: "8.79" },
-    { label: "B.Sc. Math GPA", value: "8.90" },
+    { label: "M.Sc. CS CGPA", value: "8.79" },
+    { label: "B.Sc. Math CGPA", value: "8.90" },
     { label: "Core AI Projects", value: "04" },
-    { label: "Detection Acc.", value: "98.2%" },
+    { label: "Leetcode Probelm Solved", value: "150+" },
   ],
   bio: [
-    "I am a Master's student in Computer Science with a strong academic foundation in Mathematics (8.90 undergrad GPA, 8.79 postgrad GPA). My expertise spans end-to-end Machine Learning workflows, Deep Learning architectures (PyTorch, YOLOv5, EfficientNet), dynamic data engineering, and modern full-stack web systems.",
-    "Experienced in building computer vision detection pipelines, LLM-orchestrated autonomous data extraction engines with LangChain, and interactive web services with FastAPI, Streamlit, and React.",
+    "I am a Master's student in Computer Science with a strong academic foundation in Mathematics, with an 8.90 undergraduate CGPA and 8.79 postgraduate CGPA. My interests and experience span Machine Learning, Deep Learning, Data Engineering, and Full-Stack Systems.",
+
+    "I work primarily with Python, SQL, and JavaScript, with hands-on experience building data-driven applications, machine learning workflows, RESTful APIs, and interactive web systems. I am familiar with tools and frameworks including OpenAI API, PyTorch, Scikit-learn, FastAPI, React, LangChain, Docker, Git, and GitHub.",
+
+    "My work includes Data-Driven Applications, Computer Vision and Deep Learning Pipelines, LLM-powered Data Extraction Systems, Backend Services. I enjoy solving real-world engineering problems and turning ideas into clean, efficient, and reliable software systems.",
   ],
 };
 
