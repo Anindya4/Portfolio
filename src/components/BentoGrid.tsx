@@ -77,10 +77,21 @@ const ProjectBentoCard: React.FC<ProjectCardProps> = ({ project, index, onSelect
           </div>
         </div>
 
-        {/* Middle: Interactive Mock Showcase with clean margins */}
+        {/* Middle: Interactive Mock or Image Showcase with clean margins */}
         <div className="my-5 w-full flex-1 flex items-center justify-center">
           <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-[1.01]">
-            {renderMock(project.mockType)}
+            {project.imageUrl ? (
+              <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden border border-white/10 bg-zinc-950/80 relative">
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              </div>
+            ) : (
+              renderMock(project.mockType || 'football')
+            )}
           </div>
         </div>
 

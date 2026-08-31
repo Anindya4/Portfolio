@@ -21,7 +21,8 @@ export interface Project {
   featured?: boolean;
   status?: string;
   deliverables?: string[];
-  mockType: 'football' | 'plant' | 'scraper' | 'youtube';
+  mockType?: 'football' | 'plant' | 'scraper' | 'youtube';
+  imageUrl?: string;
 }
 
 export const PERSONAL_INFO = {

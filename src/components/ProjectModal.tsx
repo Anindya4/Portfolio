@@ -113,9 +113,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               </p>
             </div>
 
-            {/* Interactive Preview Mock Container */}
-            <div className="w-full h-56 sm:h-64 rounded-xl bg-zinc-950/50 p-1 border border-white/5">
-              {renderMock()}
+            {/* Interactive Preview Mock or Image Container */}
+            <div className="w-full h-56 sm:h-72 rounded-xl bg-zinc-950/50 p-1 border border-white/5 overflow-hidden flex items-center justify-center">
+              {project.imageUrl ? (
+                <div className="w-full h-full rounded-lg overflow-hidden relative">
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                </div>
+              ) : (
+                renderMock()
+              )}
             </div>
 
             {/* Key Metrics Row */}
