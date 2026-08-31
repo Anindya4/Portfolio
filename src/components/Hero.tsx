@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { ArrowDown, Copy, Check, MapPin, Sparkles } from "lucide-react";
+import { ArrowDown, Copy, Check, MapPin, FileText, X } from "lucide-react";
 import { PERSONAL_INFO } from "../data/portfolioData";
 import { GlowCard } from "./GlowCard";
 
 export const Hero = () => {
   const [copied, setCopied] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
+  const [photoModalOpen, setPhotoModalOpen] = useState(false);
 
   const roles = [
-    "MACHINE LEARNING",
-    "DATA SCIENCE",
-    "FULL-STACK SYSTEMS",
-    "COMPUTER VISION & NLP",
-    "DATA ENGINEERING",
+    "Machine Learning Engineer",
+    "Data Scientist & Analyst",
+    "Full-Stack Developer",
+    "Data Engineer",
+    "Problem Solver",
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 2800);
+    }, 3000);
     return () => clearInterval(interval);
   }, [roles.length]);
+
+  // Close photo modal on escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPhotoModalOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
@@ -41,32 +51,6 @@ export const Hero = () => {
     },
   };
 
-  const line2Variants: Variants = {
-    hidden: { y: "100%", opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.85,
-        delay: 0.15,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
-
-  const line3Variants: Variants = {
-    hidden: { y: "100%", opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.85,
-        delay: 0.3,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
-
   const fadeUp: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: (customDelay = 0.4) => ({
@@ -81,35 +65,38 @@ export const Hero = () => {
   };
 
   const tickerItems = [
-    "Machine Learning & PyTorch",
-    "Computer Vision & YOLOv5",
-    "Data Science & Analytics",
-    "Full-Stack & React.js",
-    "FastAPI Microservices",
-    "LangChain & RAG Agents",
-    "Data Engineering & Selenium",
-    "Rigorous Mathematics (8.90 GPA)",
+    "Machine Learning",
+    "Computer Vision",
+    "Data Science",
+    "Data Analytics",
+    "Full-Stack Development",
+    "React.js",
+    "FastAPI",
+    "LangChain",
+    "Data Engineering",
+    "Rag Pipeline",
+    "MLOps",
   ];
 
   return (
     <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden border-b border-white/5">
-      {/* Subtle architectural background grid - no neon, very soft */}
+      {/* Subtle architectural background grid - soft ambient sheen */}
       <div className="absolute inset-0 subtle-grid opacity-60 pointer-events-none" />
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-zinc-800/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Top Badges */}
+        {/* Top Badges (No location badge) */}
         <motion.div
           initial="hidden"
           animate="visible"
           custom={0.1}
           variants={fadeUp}
-          className="flex flex-wrap items-center gap-3 mb-8 text-xs font-mono text-zinc-400"
+          className="flex flex-wrap items-center gap-3 mb-6 text-xs font-mono text-zinc-400"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 text-zinc-300">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span>{PERSONAL_INFO.name}</span>
-            <span className="text-zinc-600">&bull;</span>
+            {/* <span>{PERSONAL_INFO.name}</span> */}
+            {/* <span className="text-zinc-600">&bull;</span> */}
             <span className="text-zinc-400">{PERSONAL_INFO.role}</span>
           </div>
 
@@ -119,69 +106,106 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Dynamic Falling Word Role Transitions & Sliding Headline */}
-        <div className="space-y-1 sm:space-y-2 mb-8 select-none">
-          {/* Dynamic Falling Role Container */}
-          <div className="h-[44px] sm:h-[64px] md:h-[76px] lg:h-[88px] overflow-hidden relative flex items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={roleIndex}
-                initial={{ y: "-110%", opacity: 0, filter: "blur(4px)" }}
-                animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
-                exit={{ y: "110%", opacity: 0, filter: "blur(4px)" }}
-                transition={{
-                  duration: 0.5,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-100 font-display uppercase whitespace-nowrap"
+        {/* Big Name Greeting with Clickable Round Photo */}
+        <div className="space-y-4 mb-6 select-none">
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap sm:flex-nowrap">
+            {/* Clickable Round Avatar Profile Image */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setPhotoModalOpen(true)}
+              className="relative flex-shrink-0 cursor-pointer group"
+              title="Click to view portrait"
+            >
+              <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-white/20 shadow-xl bg-zinc-900 ring-4 ring-white/5 transition-transform duration-300 group-hover:scale-105 group-hover:border-white/40">
+                <img
+                  src="/img/final.png"
+                  alt={PERSONAL_INFO.name}
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              <span className="absolute bottom-2 right-2 w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-emerald-400 border-2 border-[#0b0c0e]" />
+            </motion.div>
+
+            {/* Headline */}
+            <div className="overflow-hidden">
+              <motion.h1
+                initial="hidden"
+                animate="visible"
+                variants={line1Variants}
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-zinc-100 font-display"
               >
-                {roles[roleIndex]}
-              </motion.div>
-            </AnimatePresence>
+                Hi ! I'm <span className="text-[#f97316]">Anindya.</span>
+              </motion.h1>
+            </div>
           </div>
 
-          {/* Line 2: Secondary Discipline */}
-          <div className="overflow-hidden">
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={line2Variants}
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-400 font-display uppercase flex items-center gap-3 flex-wrap"
-            >
-              <span>&amp; SOFTWARE SYSTEMS</span>
-              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-600 font-mono font-normal lowercase italic tracking-normal">
-                driven by math
-              </span>
-            </motion.h1>
-          </div>
+          {/* Dynamic Falling Skills / Roles Below the Name */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            custom={0.25}
+            variants={fadeUp}
+            className="flex flex-wrap items-center gap-x-3 gap-y-2 text-base sm:text-xl md:text-2xl text-zinc-300 font-normal tracking-tight pt-1"
+          >
+            <span className="font-mono text-sm sm:text-lg text-zinc-400">
+              I'm a
+            </span>
 
-          {/* Line 3: Action & Title */}
-          <div className="overflow-hidden">
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={line3Variants}
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-200 font-display uppercase"
-            >
-              BUILDER<span className="text-zinc-500">.</span>
-            </motion.h1>
-          </div>
+            {/* Falling Word Slot Animation */}
+            <div className="h-[38px] sm:h-[48px] overflow-hidden relative inline-flex items-center">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={roleIndex}
+                  initial={{ y: "-120%", opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: "120%", opacity: 0, filter: "blur(6px)" }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="font-display font-semibold text-zinc-100 px-3 py-1 rounded-xl bg-zinc-900/90 border border-white/10 text-sm sm:text-lg md:text-xl text-emerald-400 whitespace-nowrap shadow-sm"
+                >
+                  {roles[roleIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </div>
+          </motion.div>
         </div>
 
         {/* Subtitle & Introduction Bio */}
         <motion.div
           initial="hidden"
           animate="visible"
-          custom={0.45}
+          custom={0.4}
           variants={fadeUp}
-          className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-4 border-t border-white/5 max-w-5xl"
+          className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-6 border-t border-white/5 max-w-5xl"
         >
           <div className="md:col-span-7">
             <p className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed">
-              M.Sc. Computer Science graduate with honors in Mathematics.
-              Specializing in computer vision pipelines, LLM-powered data
-              automation with LangChain, dynamic data engineering, and
-              production-grade full-stack web applications.
+              Computer Science graduate with a strong foundation in Mathematics
+              (8.90 GPA) and Computer Science (8.79 GPA). My work spans{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Data Engineering
+              </span>
+              ,{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Machine Learning
+              </span>
+              ,{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Computer Vision
+              </span>
+              ,{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                LLM-powered automation
+              </span>
+              , and{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Full-Stack Development
+              </span>
+              .
             </p>
           </div>
 
@@ -195,28 +219,36 @@ export const Hero = () => {
                     .querySelector("#projects")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:shadow-md transition-all group"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-300 ease-out group active:scale-95"
               >
                 <span>Explore Projects</span>
                 <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
               </a>
 
+              <a
+                href="#resume"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .querySelector("#resume")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.12)] transition-all duration-300 ease-out active:scale-95"
+              >
+                <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                <span>View CV</span>
+              </a>
+
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/20 transition-all active:scale-95"
+                className="p-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.12)] transition-all duration-300 ease-out active:scale-95 cursor-pointer"
                 title="Copy email to clipboard"
               >
                 {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">Copied!</span>
-                  </>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
                 ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                    <span>Copy Email</span>
-                  </>
+                  <Copy className="w-3.5 h-3.5 text-zinc-400" />
                 )}
               </button>
             </div>
@@ -232,19 +264,19 @@ export const Hero = () => {
         <motion.div
           initial="hidden"
           animate="visible"
-          custom={0.6}
+          custom={0.55}
           variants={fadeUp}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-12 pt-8 border-t border-white/5"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-10 pt-8 border-t border-white/5"
         >
           {PERSONAL_INFO.stats.map((stat, i) => (
             <GlowCard
               key={i}
               className="p-4 sm:p-5 rounded-xl bg-zinc-900/40 border border-white/5 transition-all"
             >
-              <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-zinc-100 mb-1">
+              <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-zinc-100 mb-1 flex items-center justify-center">
                 {stat.value}
               </div>
-              <div className="text-xs font-medium text-zinc-400">
+              <div className="text-xs font-medium text-zinc-400 flex items-center justify-center">
                 {stat.label}
               </div>
             </GlowCard>
@@ -253,7 +285,7 @@ export const Hero = () => {
       </div>
 
       {/* Infinite Horizontal Sliding Ticker */}
-      <div className="mt-14 py-3 border-y border-white/5 bg-zinc-950/40 overflow-hidden flex whitespace-nowrap">
+      <div className="mt-12 py-3 border-y border-white/5 bg-zinc-950/40 overflow-hidden flex whitespace-nowrap">
         <div className="flex animate-marquee gap-8 items-center text-xs font-mono text-zinc-400 uppercase tracking-wider">
           {tickerItems.concat(tickerItems).map((item, idx) => (
             <div key={idx} className="flex items-center gap-8">
@@ -263,6 +295,61 @@ export const Hero = () => {
           ))}
         </div>
       </div>
+
+      {/* Medium-Sized Photo Pop-up Modal */}
+      <AnimatePresence>
+        {photoModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setPhotoModalOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            />
+
+            {/* Medium Pop-up Window */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 15 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-10 w-full max-w-xs sm:max-w-sm bg-[#121418] border border-white/15 rounded-3xl p-4 shadow-2xl overflow-hidden text-center space-y-3"
+            >
+              {/* Close Button */}
+              <div className="flex items-center justify-between pb-1 text-xs font-mono text-zinc-400">
+                <span>Profile Portrait</span>
+                <button
+                  onClick={() => setPhotoModalOpen(false)}
+                  className="p-1.5 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Portrait Image (Medium Sized) */}
+              <div className="w-full aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-zinc-950">
+                <img
+                  src="/img/final.png"
+                  alt={PERSONAL_INFO.name}
+                  className="w-90 h-90 object-cover object-top"
+                />
+              </div>
+
+              {/* Name Caption */}
+              <div className="pt-1">
+                <h3 className="text-base font-display font-bold text-zinc-100">
+                  {PERSONAL_INFO.name}
+                </h3>
+                <p className="text-xs font-mono text-emerald-400">
+                  {PERSONAL_INFO.role}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
-};
+};;;;;;;;;;

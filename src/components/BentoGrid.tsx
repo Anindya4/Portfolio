@@ -1,41 +1,52 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import React, { useState, useRef, useCallback, memo } from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { ArrowUpRight, FolderGit2, ArrowRight } from 'lucide-react';
 import { Project, PROJECTS_DATA } from '../data/portfolioData';
 import { FootballVisionMock, PlantDiseaseMock, ScraperMock, YouTubeChatbotMock } from './ProjectCardMocks';
 import { ProjectModal } from './ProjectModal';
+import { ProjectArchiveModal } from './ProjectArchiveModal';
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
   onSelect: () => void;
   renderMock: (mockType: string) => React.ReactNode;
 }
 
-const ProjectBentoCard: React.FC<ProjectCardProps> = ({ project, index, onSelect, renderMock }) => {
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  },
+};
+
+const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  // Direct GPU CSS variable manipulation (0 React re-renders)
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cardRef.current.style.setProperty('--mouse-x', `${x}px`);
+    cardRef.current.style.setProperty('--mouse-y', `${y}px`);
+  }, []);
 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{
-        duration: 0.35,
-        delay: index * 0.09,
-        ease: [0.16, 1, 0.3, 1],
+      variants={cardVariants}
+      whileHover={{ scale: 1.018, y: -5 }}
+      style={{
+        willChange: 'transform, opacity',
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
@@ -48,7 +59,7 @@ const ProjectBentoCard: React.FC<ProjectCardProps> = ({ project, index, onSelect
         className="pointer-events-none absolute -inset-px rounded-[1.25rem] transition-opacity duration-300 z-0"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(75px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, transparent 80%)`,
+          background: 'radial-gradient(75px circle at var(--mouse-x, -100px) var(--mouse-y, -100px), rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, transparent 80%)',
         }}
       />
 
@@ -79,12 +90,13 @@ const ProjectBentoCard: React.FC<ProjectCardProps> = ({ project, index, onSelect
 
         {/* Middle: Interactive Mock or Image Showcase with clean margins */}
         <div className="my-5 w-full flex-1 flex items-center justify-center">
-          <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-[1.01]">
+          <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-[1.01] bg-[#13161c]">
             {project.imageUrl ? (
               <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden border border-white/10 bg-zinc-950/80 relative">
                 <img
                   src={project.imageUrl}
                   alt={project.title}
+                  loading="eager"
                   className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
@@ -135,16 +147,38 @@ const ProjectBentoCard: React.FC<ProjectCardProps> = ({ project, index, onSelect
       </div>
     </motion.div>
   );
+});
+
+ProjectBentoCard.displayName = 'ProjectBentoCard';
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.06,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.18,
+      ease: 'easeInOut',
+    },
+  },
 };
 
 export const BentoGrid = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
+  const [archiveModalOpen, setArchiveModalOpen] = useState(false);
 
   const categories = ['All', 'CV + NLP', 'Machine Learning', 'Data Engineering', 'Full Stack'];
 
+  // Top 4 flagship on 'All', or full category projects on specific tabs
   const filteredProjects = selectedCategory === 'All'
-    ? PROJECTS_DATA
+    ? PROJECTS_DATA.filter((p) => p.featured)
     : PROJECTS_DATA.filter((p) => {
         if (selectedCategory === 'CV + NLP') {
           return p.category === 'CV + NLP';
@@ -161,7 +195,7 @@ export const BentoGrid = () => {
         return p.category === selectedCategory;
       });
 
-  const renderCardMock = (mockType: string) => {
+  const renderCardMock = useCallback((mockType: string) => {
     switch (mockType) {
       case 'football':
         return <FootballVisionMock />;
@@ -174,7 +208,7 @@ export const BentoGrid = () => {
       default:
         return null;
     }
-  };
+  }, []);
 
   return (
     <section id="projects" className="py-24 md:py-32 relative border-b border-white/5">
@@ -209,29 +243,56 @@ export const BentoGrid = () => {
           </div>
         </div>
 
-        {/* Bento Grid Container - Smooth Sequential One-By-One Transition */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCategory}
-            className="grid grid-cols-12 gap-6 sm:gap-8"
+        {/* Bento Grid Container - Single Synchronized Variant Tree (Zero Blink) */}
+        <div className="min-h-[420px] relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="grid grid-cols-12 gap-6 sm:gap-8"
+            >
+              {filteredProjects.map((project) => (
+                <ProjectBentoCard
+                  key={project.id}
+                  project={project}
+                  onSelect={() => setActiveModalProject(project)}
+                  renderMock={renderCardMock}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Centered View Complete Project Archive Button */}
+        <div className="mt-14 pt-8 border-t border-white/5 flex items-center justify-center">
+          <button
+            onClick={() => setArchiveModalOpen(true)}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-zinc-900/90 border border-white/15 text-sm font-semibold text-zinc-100 hover:text-white hover:bg-zinc-800 hover:border-white/35 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.12)] transition-all duration-300 ease-out group active:scale-95 shadow-xl cursor-pointer"
           >
-            {filteredProjects.map((project, index) => (
-              <ProjectBentoCard
-                key={project.id}
-                project={project}
-                index={index}
-                onSelect={() => setActiveModalProject(project)}
-                renderMock={renderCardMock}
-              />
-            ))}
-          </motion.div>
-        </AnimatePresence>
+            <FolderGit2 className="w-4 h-4 text-emerald-400 transition-transform duration-300 group-hover:scale-110" />
+            <span>View Full Project Archive ({PROJECTS_DATA.length})</span>
+            <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-300" />
+          </button>
+        </div>
       </div>
 
       {/* Project Detail Modal */}
       <ProjectModal
         project={activeModalProject}
         onClose={() => setActiveModalProject(null)}
+      />
+
+      {/* Full Project Archive Drawer / Modal */}
+      <ProjectArchiveModal
+        isOpen={archiveModalOpen}
+        onClose={() => setArchiveModalOpen(false)}
+        onSelectProject={(project) => {
+          setArchiveModalOpen(false);
+          setActiveModalProject(project);
+        }}
       />
     </section>
   );

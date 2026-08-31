@@ -9,7 +9,7 @@ import { Experience } from './components/Experience';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
-export function App() {
+export default function App() {
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-[#0b0c0e] text-[#e8eaed] selection:bg-zinc-800 selection:text-white font-sans antialiased overflow-x-hidden">
@@ -19,7 +19,7 @@ export function App() {
           <ResumeSection />
           <BentoGrid />
           <AboutBento />
-          <Experience />
+          {/* <Experience /> */}
           <Contact />
         </main>
         <Footer />
@@ -28,4 +28,3 @@ export function App() {
   );
 }
 
-export default App;

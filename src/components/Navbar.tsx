@@ -36,15 +36,15 @@ export const Navbar = () => {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'py-3' : 'py-5'
+          scrolled ? "py-3" : "py-5"
         }`}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div
             className={`flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
               scrolled
-                ? 'bg-[#121418]/85 backdrop-blur-md border border-white/10 shadow-lg shadow-black/20'
-                : 'bg-transparent border border-transparent'
+                ? "bg-[#121418]/85 backdrop-blur-md border border-white/10 shadow-lg shadow-black/20"
+                : "bg-transparent border border-transparent"
             }`}
           >
             {/* Left: Logo & Identity */}
@@ -81,12 +81,12 @@ export const Navbar = () => {
             <div className="flex items-center gap-3">
               <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/30 border border-emerald-500/20 text-[11px] font-mono text-emerald-400/90">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Open for Q3 projects</span>
+                <span>Open to collaborations</span>
               </div>
 
               <a
                 href="#contact"
-                onClick={(e) => scrollToSection(e, '#contact')}
+                onClick={(e) => scrollToSection(e, "#contact")}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-950 hover:bg-white transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Get in Touch</span>
@@ -100,7 +100,11 @@ export const Navbar = () => {
                 className="p-1.5 md:hidden text-zinc-400 hover:text-white rounded-lg bg-zinc-900/60 border border-white/5"
                 aria-label="Toggle navigation menu"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>
