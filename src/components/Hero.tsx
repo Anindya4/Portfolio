@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
-import { motion, Variants } from 'framer-motion';
-import { ArrowDown, Copy, Check, MapPin, Sparkles } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import React, { useState, useEffect } from "react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
+import { ArrowDown, Copy, Check, MapPin, Sparkles } from "lucide-react";
+import { PERSONAL_INFO } from "../data/portfolioData";
 import { GlowCard } from "./GlowCard";
 
 export const Hero = () => {
   const [copied, setCopied] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  const roles = [
+    "MACHINE LEARNING",
+    "DATA SCIENCE",
+    "FULL-STACK SYSTEMS",
+    "COMPUTER VISION & NLP",
+    "DATA ENGINEERING",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [roles.length]);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
@@ -58,21 +74,21 @@ export const Hero = () => {
       y: 0,
       transition: {
         duration: 0.7,
-        delay: typeof customDelay === 'number' ? customDelay : 0.4,
+        delay: typeof customDelay === "number" ? customDelay : 0.4,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     }),
   };
 
   const tickerItems = [
+    "Machine Learning & PyTorch",
     "Computer Vision & YOLOv5",
-    "PyTorch & Deep Learning",
-    "LangChain & AI Agents",
-    "FastAPI & Microservices",
-    "MLOps & Docker",
-    "Transfer Learning",
-    "Mathematical Modeling",
-    "React.js & Full-Stack",
+    "Data Science & Analytics",
+    "Full-Stack & React.js",
+    "FastAPI Microservices",
+    "LangChain & RAG Agents",
+    "Data Engineering & Selenium",
+    "Rigorous Mathematics (8.90 GPA)",
   ];
 
   return (
@@ -103,19 +119,28 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Sliding Text Intro - Kinetic ML & Engineering Headline */}
+        {/* Dynamic Falling Word Role Transitions & Sliding Headline */}
         <div className="space-y-1 sm:space-y-2 mb-8 select-none">
-          <div className="overflow-hidden">
-            <motion.h1
-              initial="hidden"
-              animate="visible"
-              variants={line1Variants}
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-100 font-display uppercase"
-            >
-              MACHINE LEARNING
-            </motion.h1>
+          {/* Dynamic Falling Role Container */}
+          <div className="h-[44px] sm:h-[64px] md:h-[76px] lg:h-[88px] overflow-hidden relative flex items-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={roleIndex}
+                initial={{ y: "-110%", opacity: 0, filter: "blur(4px)" }}
+                animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+                exit={{ y: "110%", opacity: 0, filter: "blur(4px)" }}
+                transition={{
+                  duration: 0.5,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-100 font-display uppercase whitespace-nowrap"
+              >
+                {roles[roleIndex]}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
+          {/* Line 2: Secondary Discipline */}
           <div className="overflow-hidden">
             <motion.h1
               initial="hidden"
@@ -123,13 +148,14 @@ export const Hero = () => {
               variants={line2Variants}
               className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-400 font-display uppercase flex items-center gap-3 flex-wrap"
             >
-              <span>&amp; BACKEND SYSTEMS</span>
+              <span>&amp; SOFTWARE SYSTEMS</span>
               <span className="text-xl sm:text-3xl md:text-4xl text-zinc-600 font-mono font-normal lowercase italic tracking-normal">
                 driven by math
               </span>
             </motion.h1>
           </div>
 
+          {/* Line 3: Action & Title */}
           <div className="overflow-hidden">
             <motion.h1
               initial="hidden"
@@ -137,7 +163,7 @@ export const Hero = () => {
               variants={line3Variants}
               className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-zinc-200 font-display uppercase"
             >
-              ARCHITECT<span className="text-zinc-500">.</span>
+              BUILDER<span className="text-zinc-500">.</span>
             </motion.h1>
           </div>
         </div>
@@ -154,8 +180,8 @@ export const Hero = () => {
             <p className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed">
               M.Sc. Computer Science graduate with honors in Mathematics.
               Specializing in computer vision pipelines, LLM-powered data
-              automation with LangChain, and production-grade REST APIs with
-              FastAPI.
+              automation with LangChain, dynamic data engineering, and
+              production-grade full-stack web applications.
             </p>
           </div>
 
@@ -169,7 +195,7 @@ export const Hero = () => {
                     .querySelector("#projects")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:scale-[1.03] hover:shadow-md transition-all group"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:shadow-md transition-all group"
               >
                 <span>Explore Projects</span>
                 <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />

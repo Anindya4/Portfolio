@@ -60,3 +60,10 @@ in which file i can modify my projects and add more?
   full-width).
   • Personal Info & Resumes: In the same file (portfolioData.ts), you can also edit your PERSONAL_INFO (bio, email, stats) and        
   RESUME_LINKS (Google Drive links).
+
+   ### 💬 2. How to Continue in Antigravity                                                                                            
+                                                                                                                                      
+  • In the CLI / Chat: You can reopen this workspace anytime (/home/anindya/Coding/portfolio).                                        
+  • You can reference this conversation directly: Conversation conversation://311433f7-fbd8-47cb-93a5-2ac7ee74d9b3.                   
+  • Just say: "Let's continue working on my portfolio" and I will have full context of all your components, styles, and               
+  configurations! 
