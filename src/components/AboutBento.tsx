@@ -54,7 +54,9 @@ export const AboutBento = () => {
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
                 <span className="flex items-center gap-2">
                   <Compass className="w-4 h-4 text-zinc-400" />
-                  <span>Engineering &amp; Research Philosophy</span>
+                  <span className="text-sm">
+                    Engineering &amp; Research Philosophy
+                  </span>
                 </span>
                 <span className="text-zinc-500">01</span>
               </div>
@@ -106,12 +108,12 @@ export const AboutBento = () => {
           </GlowCard>
 
           {/* Card 2: Live Local Time & Availability (Spans 5 cols) */}
-          <GlowCard className="col-span-12 lg:col-span-5 self-start p-8 sm:p-10 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
+          <GlowCard className="col-span-12 lg:col-span-5 self-start p-6 sm:p-8 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
                 <span className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-zinc-400" />
-                  <span>Local Time &amp; Availability</span>
+                  <span className="text-sm">Local Time &amp; Availability</span>
                 </span>
                 <span className="text-zinc-500">02</span>
               </div>
@@ -146,7 +148,9 @@ export const AboutBento = () => {
             <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
               <span className="flex items-center gap-2">
                 <GraduationCap className="w-4 h-4 text-zinc-400" />
-                <span>Academic Degrees &amp; Performance</span>
+                <span className="text-base">
+                  Academic Degrees &amp; Performance
+                </span>
               </span>
               <span className="text-zinc-500">03</span>
             </div>

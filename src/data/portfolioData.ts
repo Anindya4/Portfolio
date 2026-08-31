@@ -36,7 +36,8 @@ export const PERSONAL_INFO = {
   social: {
     github: "https://github.com/Anindya4",
     linkedin: "https://www.linkedin.com/in/anindyasnandi/",
-    email: "mailto:anindyanandi.work@gmail.com",
+    gmail: "mailto:anindyanandi.work@gmail.com",
+    leetcode: "https://leetcode.com/u/Anindya4/",
   },
   stats: [
     { label: "M.Sc. CS CGPA", value: "8.79" },
@@ -207,17 +208,39 @@ export const PROJECTS_DATA: Project[] = [
 
 export const CAPABILITIES = [
   {
+    category: "Data Engineering & LLMs",
+    items: [
+      "SQL",
+      "Python",
+      "Pandas & Numpy",
+      "RAG Architectures",
+      "OpenAI API & LLM Integration",
+      "Semantic Search & Embeddings",
+    ],
+  },
+  {
+    category: "Full Stack Development",
+    items: [
+      "Python, SQL, JavaScript",
+      "FastAPI",
+      "React.js",
+      "Streamlit",
+      "Docker & Containerization",
+      "Git & GitHub Workflows",
+    ],
+  },
+  {
     category: "CV, NLP & Deep Learning",
-    items: ["PyTorch & Scikit-learn", "YOLOv5 & Object Detection", "OpenCV & Image Processing", "EfficientNet Transfer Learning", "K-Means & Unsupervised Clustering", "Model Evaluation & Optimization"]
+    items: [
+      "OpenCV",
+      "LangChain",
+      "EfficientNet",
+      "Object Detection",
+      "PyTorch & Scikit-learn",
+      // "Transfer Learning",
+      "Model Evaluation & Optimization",
+    ],
   },
-  {
-    category: "LLM, NLP & Data Engineering",
-    items: ["LangChain & RAG Architectures", "OpenAI & LLM API Integration", "Dynamic Web Scraping (Selenium, BS4)", "Semantic Search & Embeddings", "Multi-Language NLP Pipelines", "Pandas & Data Wrangling"]
-  },
-  {
-    category: "Full Stack & Mathematical Foundations",
-    items: ["Python, JavaScript, SQL", "FastAPI, Django & React.js", "Streamlit Interactive Apps", "Docker & Containerization", "Git & GitHub Workflows", "Rigorous Mathematical Foundations"]
-  }
 ];
 
 export const EDUCATION_DATA = [
@@ -227,7 +250,8 @@ export const EDUCATION_DATA = [
     location: "Medinipur, India",
     period: "09/2023 — 07/2025",
     gpa: "8.79 CGPA",
-    highlights: "Advanced Algorithms, Machine Learning Systems, Distributed Computing, Deep Learning Research."
+    highlights:
+      "Advanced Algorithms, Machine Learning Systems, Deep Learning Research.",
   },
   {
     degree: "Bachelor of Science (B.Sc. Honors) in Mathematics",
@@ -235,8 +259,9 @@ export const EDUCATION_DATA = [
     location: "Manikpara, India",
     period: "07/2019 — 08/2022",
     gpa: "8.90 CGPA",
-    highlights: "Linear Algebra, Real Analysis, Probability & Statistics, Discrete Mathematics, Numerical Methods."
-  }
+    highlights:
+      "Linear Algebra, Real Analysis, Probability & Statistics, Discrete Mathematics.",
+  },
 ];
 
 export const EXPERIENCE_TIMELINE = [
