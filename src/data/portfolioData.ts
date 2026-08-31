@@ -27,9 +27,9 @@ export interface Project {
 
 export const PERSONAL_INFO = {
   name: "Anindya Sundar Nandi",
-  role: "Machine Learning Engineer & Backend Developer",
+  role: "Machine Learning, Data Science & Full-Stack Engineer",
   tagline: "Bridging Mathematical Foundations with Scalable AI & Systems",
-  availability: "Open to ML Engineering, AI & SDE Roles",
+  availability: "Open to ML, Data Science & Full-Stack Roles",
   location: "Medinipur, India & Remote (IST / UTC+5:30)",
   email: "anindyanandi.work@gmail.com",
   phone: "(+91) 6296689986",
