@@ -30,13 +30,13 @@ export const PERSONAL_INFO = {
   role: "Machine Learning, Data Science & Full-Stack Engineer",
   tagline: "Bridging Mathematical Foundations with Scalable AI & Systems",
   availability: "Open to ML, Data Science & Full-Stack Roles",
-  location: "Medinipur, India & Remote (IST / UTC+5:30)",
+  location: "Kolkata, India & Remote (IST / UTC+5:30)",
   email: "anindyanandi.work@gmail.com",
   phone: "(+91) 6296689986",
   social: {
     github: "https://github.com",
     linkedin: "https://linkedin.com",
-    email: "mailto:anindyanandi.work@gmail.com"
+    email: "mailto:anindyanandi.work@gmail.com",
   },
   stats: [
     { label: "M.Sc. CS GPA", value: "8.79" },
@@ -46,8 +46,8 @@ export const PERSONAL_INFO = {
   ],
   bio: [
     "I am a Master's student in Computer Science with a strong academic foundation in Mathematics (8.90 undergrad GPA, 8.79 postgrad GPA). My expertise spans end-to-end Machine Learning workflows, Deep Learning architectures (PyTorch, YOLOv5, EfficientNet), dynamic data engineering, and modern full-stack web systems.",
-    "Experienced in building computer vision detection pipelines, LLM-orchestrated autonomous data extraction engines with LangChain, and interactive web services with FastAPI, Streamlit, and React."
-  ]
+    "Experienced in building computer vision detection pipelines, LLM-orchestrated autonomous data extraction engines with LangChain, and interactive web services with FastAPI, Streamlit, and React.",
+  ],
 };
 
 export const RESUME_LINKS = {
@@ -55,22 +55,36 @@ export const RESUME_LINKS = {
     id: "ds-ml",
     title: "Data Science & Machine Learning CV",
     track: "Data Science, ML & Data Engineering",
-    description: "Specialized in Computer Vision (YOLOv5), Deep Learning (PyTorch, EfficientNet), LangChain LLM agents, and statistical data pipelines.",
+    description:
+      "Specialized in Computer Vision (YOLOv5), Deep Learning (PyTorch, EfficientNet), LangChain LLM agents, and statistical data pipelines.",
     pdfUrl: "/cv/A_S_NANDI_DS+ML.pdf",
-    gdriveUrl: "https://drive.google.com/file/d/1example_DS_ML_CV_link/view?usp=sharing",
-    highlights: ["PyTorch & YOLOv5", "Transfer Learning (98.17%)", "LangChain & NLP", "Mathematical Rigor (8.90 GPA)"],
+    gdriveUrl:
+      "https://drive.google.com/file/d/1DIEgK5foht1J4lWWWNLJORzmhpOKaerp/view?usp=sharing",
+    highlights: [
+      "PyTorch & YOLOv5",
+      "Transfer Learning (98.17%)",
+      "LangChain & NLP",
+      "Mathematical Rigor (8.90 GPA)",
+    ],
     accentColor: "#8fa89b",
   },
   softwareEngineering: {
     id: "sde",
     title: "Software Development Engineer (SDE) CV",
     track: "Software Engineering & Full-Stack Systems",
-    description: "Specialized in backend APIs with FastAPI & Django, modern React frontend development, Docker containerization, and data-driven systems.",
+    description:
+      "Specialized in backend APIs with FastAPI & Django, modern React frontend development, Docker containerization, and data-driven systems.",
     pdfUrl: "/cv/A_S_NANDI_SDE.pdf",
-    gdriveUrl: "https://drive.google.com/file/d/1example_SDE_CV_link/view?usp=sharing",
-    highlights: ["FastAPI & Django REST", "React.js & JavaScript", "Docker & Databases", "Clean Modular Architecture"],
+    gdriveUrl:
+      "https://drive.google.com/file/d/1joi7cVsOtoIxDbrXuSoS5pwO3rDjD0Pg/view?usp=sharing",
+    highlights: [
+      "FastAPI & Django REST",
+      "React.js & JavaScript",
+      "Docker & Databases",
+      "Clean Modular Architecture",
+    ],
     accentColor: "#8ea0b5",
-  }
+  },
 };
 
 export const PROJECTS_DATA: Project[] = [
