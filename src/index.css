@@ -37,6 +37,7 @@
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
 }
 
+/* Bento Card with glowing gradient edges on hover */
 .bento-card {
   position: relative;
   background-color: #121418;
@@ -46,12 +47,41 @@
   overflow: hidden;
 }
 
+/* Glowing gradient border overlay on the sides */
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 255, 255, 0.02) 65%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .bento-card:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.35);
   box-shadow: 
-    0 0 35px -5px rgba(255, 255, 255, 0.09),
-    0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    0 0 25px rgba(255, 255, 255, 0.16),
+    0 0 50px rgba(255, 255, 255, 0.06),
+    0 20px 40px -15px rgba(0, 0, 0, 0.8);
+}
+
+.bento-card:hover::before {
+  opacity: 1;
 }
 
 /* Glass effect without neon glow */
