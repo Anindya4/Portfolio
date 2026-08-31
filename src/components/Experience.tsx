@@ -1,6 +1,7 @@
 import React from 'react';
-import { Briefcase, ArrowUpRight, Calendar, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { EXPERIENCE_TIMELINE } from '../data/portfolioData';
+import { GlowCard } from './GlowCard';
 
 export const Experience = () => {
   return (
@@ -22,12 +23,12 @@ export const Experience = () => {
           </p>
         </div>
 
-        {/* Timeline Rows */}
+        {/* Timeline Rows with GlowCard */}
         <div className="space-y-4">
           {EXPERIENCE_TIMELINE.map((item, index) => (
-            <div
+            <GlowCard
               key={index}
-              className="bento-card p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 group hover:bg-[#15171d] transition-all"
+              className="p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 group hover:bg-[#15171d] transition-all"
             >
               <div className="md:w-1/4">
                 <span className="text-xs font-mono text-zinc-400 block mb-1">
@@ -53,7 +54,7 @@ export const Experience = () => {
                   {item.description}
                 </p>
               </div>
-            </div>
+            </GlowCard>
           ))}
         </div>
       </div>

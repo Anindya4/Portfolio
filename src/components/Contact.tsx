@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Copy, Check, Send, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Copy, Check, Send, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { GithubIcon, TwitterIcon, LinkedinIcon } from './Icons';
+import { GlowCard } from './GlowCard';
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -10,7 +11,8 @@ export const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    projectType: 'Web Application',
+    projectType: 'Machine Learning',
+    customRole: '',
     message: '',
   });
 
@@ -55,18 +57,18 @@ export const Contact = () => {
         {/* Contact Bento Grid */}
         <div className="grid grid-cols-12 gap-6">
           {/* Left Bento: Quick Reach & Socials (5 cols) */}
-          <div className="col-span-12 lg:col-span-5 flex flex-col justify-between gap-6">
-            <div className="bento-card p-6 sm:p-8 flex-1 flex flex-col justify-between">
+          <div className="col-span-12 lg:col-span-5 flex flex-col justify-between">
+            <GlowCard className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
               <div>
                 <h3 className="text-xl font-display font-semibold text-zinc-100 mb-2">
-                  Let's create something enduring.
+                  Let's build intelligent systems together.
                 </h3>
                 <p className="text-sm text-zinc-400 leading-relaxed mb-6">
-                  Whether you are planning a full-scale product launch, engineering a robust design system, or looking for high-level architectural consultation, I'm always open to discussing new opportunities.
+                  Available for ML Engineering, AI Systems, Computer Vision, and Software Engineering positions. Feel free to connect directly.
                 </p>
 
                 <div className="p-4 rounded-xl bg-zinc-900/80 border border-white/5 space-y-3">
-                  <div className="text-xs font-mono text-zinc-400">Direct Contact</div>
+                  <div className="text-xs font-mono text-zinc-400">Direct Transmission</div>
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-sm font-mono text-zinc-200 truncate">{PERSONAL_INFO.email}</span>
                     <button
@@ -99,11 +101,11 @@ export const Contact = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </GlowCard>
           </div>
 
           {/* Right Bento: Inquiry Form (7 cols) */}
-          <div className="col-span-12 lg:col-span-7 bento-card p-6 sm:p-8">
+          <GlowCard className="col-span-12 lg:col-span-7 p-6 sm:p-8">
             {formSubmitted ? (
               <div className="h-full min-h-[380px] flex flex-col items-center justify-center text-center p-6 space-y-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-950/50 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
@@ -128,7 +130,7 @@ export const Contact = () => {
                     <input
                       type="text"
                       required
-                      placeholder="Jane Doe"
+                      placeholder="Recruiter or Engineering Lead"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl bg-zinc-900/70 border border-white/10 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-400 transition-colors"
@@ -140,7 +142,7 @@ export const Contact = () => {
                     <input
                       type="email"
                       required
-                      placeholder="jane@company.com"
+                      placeholder="team@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl bg-zinc-900/70 border border-white/10 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-400 transition-colors"
@@ -148,27 +150,55 @@ export const Contact = () => {
                   </div>
                 </div>
 
+                {/* Inquiry Scope / Role Selection Dropdown */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-zinc-400">Project Type / Inquiry Scope</label>
+                  <label className="text-xs font-mono text-zinc-400">Inquiry Scope / Role Category</label>
                   <select
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl bg-zinc-900/70 border border-white/10 text-xs text-zinc-200 focus:outline-none focus:border-zinc-400 transition-colors"
                   >
-                    <option value="Web Application">Full-Stack Web Application</option>
-                    <option value="Design System">Design System &amp; UI Architecture</option>
-                    <option value="Mobile App">Mobile Application (React Native)</option>
-                    <option value="Performance Audit">Performance &amp; Codebase Audit</option>
-                    <option value="Advisory">Technical Advisory / Consultation</option>
+                    <option value="Machine Learning">Machine Learning Engineer (Computer Vision / NLP)</option>
+                    <option value="Software Engineer">Software Development Engineer (Full-Stack / Backend)</option>
+                    <option value="Data Engineering">Data Engineer / LLM Pipelines</option>
+                    <option value="Consultation">Technical Consultation / Project Work</option>
+                    <option value="Other">Other / Custom Role or Scope</option>
                   </select>
                 </div>
 
+                {/* Custom Role Input Box - Dynamically reveals when 'Other' is selected */}
+                <AnimatePresence>
+                  {formData.projectType === 'Other' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, y: -6 }}
+                      animate={{ opacity: 1, height: 'auto', y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: -6 }}
+                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden space-y-1.5"
+                    >
+                      <label className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+                        <Sparkles className="w-3 h-3" />
+                        <span>Specify Your Desired Role / Opportunity</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. AI Research Scientist, Computer Vision Specialist, Distributed Backend..."
+                        value={formData.customRole}
+                        onChange={(e) => setFormData({ ...formData, customRole: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-zinc-900/90 border border-emerald-500/40 text-xs text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-emerald-400 shadow-sm transition-colors"
+                        autoFocus
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <div className="space-y-1.5">
-                  <label className="text-xs font-mono text-zinc-400">Project Overview &amp; Timeline</label>
+                  <label className="text-xs font-mono text-zinc-400">Message &amp; Overview</label>
                   <textarea
                     rows={4}
                     required
-                    placeholder="Tell me about what you are building, key milestones, or estimated start dates..."
+                    placeholder="Describe your role requirements, team overview, or project scope..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl bg-zinc-900/70 border border-white/10 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-400 transition-colors resize-none"
@@ -177,7 +207,7 @@ export const Contact = () => {
 
                 <div className="pt-2 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-zinc-400">
-                    Typical response: &lt;24 hours
+                    Response time: &lt;24 hours
                   </span>
 
                   <button
@@ -190,7 +220,7 @@ export const Contact = () => {
                 </div>
               </form>
             )}
-          </div>
+          </GlowCard>
         </div>
       </div>
     </section>

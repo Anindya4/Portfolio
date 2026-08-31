@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, Variants } from 'framer-motion';
 import { ArrowDown, Copy, Check, MapPin, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { GlowCard } from "./GlowCard";
 
 export const Hero = () => {
   const [copied, setCopied] = useState(false);
@@ -151,7 +152,10 @@ export const Hero = () => {
         >
           <div className="md:col-span-7">
             <p className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed">
-              M.Sc. Computer Science graduate with honors in Mathematics. Specializing in computer vision pipelines, LLM-powered data automation with LangChain, and production-grade REST APIs with FastAPI.
+              M.Sc. Computer Science graduate with honors in Mathematics.
+              Specializing in computer vision pipelines, LLM-powered data
+              automation with LangChain, and production-grade REST APIs with
+              FastAPI.
             </p>
           </div>
 
@@ -161,9 +165,11 @@ export const Hero = () => {
                 href="#projects"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+                  document
+                    .querySelector("#projects")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:shadow-md transition-all group"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:scale-[1.03] hover:shadow-md transition-all group"
               >
                 <span>Explore Projects</span>
                 <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
@@ -190,12 +196,13 @@ export const Hero = () => {
             </div>
 
             <p className="text-xs text-zinc-500 font-mono">
-              Direct: <span className="text-zinc-400">{PERSONAL_INFO.email}</span>
+              Direct:{" "}
+              <span className="text-zinc-400">{PERSONAL_INFO.email}</span>
             </p>
           </div>
         </motion.div>
 
-        {/* Quick Bento Metric Cards */}
+        {/* Quick Bento Metric Cards with Glow */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -204,9 +211,9 @@ export const Hero = () => {
           className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-12 pt-8 border-t border-white/5"
         >
           {PERSONAL_INFO.stats.map((stat, i) => (
-            <div
+            <GlowCard
               key={i}
-              className="p-4 rounded-xl bg-zinc-900/30 border border-white/5 hover:border-white/10 transition-colors"
+              className="p-4 sm:p-5 rounded-xl bg-zinc-900/40 border border-white/5 transition-all"
             >
               <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-zinc-100 mb-1">
                 {stat.value}
@@ -214,7 +221,7 @@ export const Hero = () => {
               <div className="text-xs font-medium text-zinc-400">
                 {stat.label}
               </div>
-            </div>
+            </GlowCard>
           ))}
         </motion.div>
       </div>
