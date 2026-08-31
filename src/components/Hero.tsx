@@ -184,10 +184,28 @@ export const Hero = () => {
         >
           <div className="md:col-span-7">
             <p className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed">
-              Master's Scholar in Computer Science (8.79 GPA) with Honors in
-              Mathematics (8.90 GPA). Specializing in computer vision pipelines,
-              LLM-powered data automation with LangChain, dynamic data
-              engineering, and production-grade full-stack web applications.
+              Computer Science graduate with a strong foundation in Mathematics
+              (8.90 GPA) and Computer Science (8.79 GPA). My work spans{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Data Engineering
+              </span>
+              ,{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Machine Learning
+              </span>
+              ,{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Computer Vision
+              </span>
+              ,{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                LLM-powered automation
+              </span>
+              , and{" "}
+              <span className="text-[#ecdac4] font-semibold">
+                Full-Stack Development
+              </span>
+              .
             </p>
           </div>
 
@@ -201,7 +219,7 @@ export const Hero = () => {
                     .querySelector("#projects")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:shadow-md transition-all group"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-300 ease-out group active:scale-95"
               >
                 <span>Explore Projects</span>
                 <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
@@ -215,7 +233,7 @@ export const Hero = () => {
                     .querySelector("#resume")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/20 transition-all active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.12)] transition-all duration-300 ease-out active:scale-95"
               >
                 <FileText className="w-3.5 h-3.5 text-emerald-400" />
                 <span>View CV</span>
@@ -224,7 +242,7 @@ export const Hero = () => {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="p-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/20 transition-all active:scale-95"
+                className="p-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.12)] transition-all duration-300 ease-out active:scale-95 cursor-pointer"
                 title="Copy email to clipboard"
               >
                 {copied ? (

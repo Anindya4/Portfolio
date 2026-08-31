@@ -13,7 +13,10 @@ export const ResumeSection = () => {
   const currentData = selectedTrack === 'ds' ? dsResume : sdeResume;
 
   return (
-    <section id="resume" className="py-16 md:py-20 relative border-b border-white/5 bg-zinc-950/40">
+    <section
+      id="resume"
+      className="py-16 md:py-20 relative border-b border-white/5 bg-zinc-950/40"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Section Pill Header */}
         <div className="text-center mb-8">
@@ -25,7 +28,9 @@ export const ResumeSection = () => {
             SELECT &amp; ACCESS RESUME
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 max-w-lg mx-auto leading-relaxed">
-            Please choose the profile aligned with your team's focus to view or download the tailored CV with detailed metrics and verified project deliverables.
+            Please choose the profile aligned with your team's focus to view or
+            download the tailored CV with detailed metrics and verified project
+            deliverables.
           </p>
         </div>
 
@@ -34,11 +39,11 @@ export const ResumeSection = () => {
           {/* Top Track Selector Tabs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 p-1.5 bg-zinc-900/90 border border-white/10 rounded-2xl max-w-xl mx-auto w-full">
             <button
-              onClick={() => setSelectedTrack('ds')}
+              onClick={() => setSelectedTrack("ds")}
               className={`w-full sm:w-1/2 flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
-                selectedTrack === 'ds'
-                  ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.01]'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
+                selectedTrack === "ds"
+                  ? "bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.01]"
+                  : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
               }`}
             >
               <Brain className="w-4 h-4 text-emerald-600" />
@@ -46,11 +51,11 @@ export const ResumeSection = () => {
             </button>
 
             <button
-              onClick={() => setSelectedTrack('sde')}
+              onClick={() => setSelectedTrack("sde")}
               className={`w-full sm:w-1/2 flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
-                selectedTrack === 'sde'
-                  ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.01]'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
+                selectedTrack === "sde"
+                  ? "bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.01]"
+                  : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
               }`}
             >
               <Code className="w-4 h-4 text-sky-600" />
@@ -119,7 +124,7 @@ export const ResumeSection = () => {
                     href={currentData.gdriveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-xs font-medium text-zinc-200 hover:text-white hover:border-white/30 hover:bg-zinc-800 transition-all shadow-sm"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-xs font-medium text-zinc-200 hover:text-white hover:border-white/30 hover:scale-105 hover:bg-zinc-800 transition-all shadow-sm"
                   >
                     <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Open in Google Drive</span>
@@ -130,7 +135,7 @@ export const ResumeSection = () => {
                     href={currentData.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:shadow-md transition-all active:scale-95"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-all active:scale-95"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>View / Download PDF</span>

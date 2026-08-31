@@ -267,7 +267,7 @@ export const Contact = () => {
 
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:shadow-md transition-all active:scale-95"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-all active:scale-95"
                   >
                     <span>Send Message</span>
                     <Send className="w-3.5 h-3.5" />
