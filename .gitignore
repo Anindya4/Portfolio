@@ -3,3 +3,6 @@ dist
 CV
 new_project_temp.md
 test-img/
+env
+.env
+**/__pycache__

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Turnstile } from "@marsidev/react-turnstile";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check, Send, ArrowUpRight, Sparkles } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
@@ -14,12 +15,15 @@ import { GlowCard } from './GlowCard';
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    projectType: 'Machine Learning',
-    customRole: '',
-    message: '',
+    name: "",
+    email: "",
+    projectType: "Machine Learning",
+    customRole: "",
+    message: "",
   });
 
   const copyEmail = () => {
@@ -28,9 +32,44 @@ export const Contact = () => {
     setTimeout(() => setCopied(false), 2400);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Before submitting the form
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setSubmitError("");
+
+    if (!turnstileToken) {
+      setSubmitError("Please complete the verification before sending.");
+      return;
+    }
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("http://localhost:8000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          projectType: formData.projectType,
+          customRole: formData.customRole,
+          message: formData.message,
+          turnstile_token: turnstileToken,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+      setFormSubmitted(true);
+      setTurnstileToken("");
+    } catch (error) {
+      setSubmitError(
+        "Something went wrong while sending your message. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getPlatformIcon = (platform: string) => {
@@ -257,6 +296,30 @@ export const Contact = () => {
                     className="w-full px-4 py-2.5 rounded-xl bg-zinc-900/70 border border-white/10 text-xs text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-400 transition-colors resize-none"
                   />
                 </div>
+                {/* TurnstileToken */}
+                <div className="pt-2 flex justify-center">
+                  <Turnstile
+                    siteKey={import.meta.env.VITE_TURNSTILE_SITEKEY}
+                    onSuccess={(token) => {
+                      setTurnstileToken(token);
+                      setSubmitError("");
+                    }}
+                    onError={() => {
+                      setTurnstileToken("");
+                      setSubmitError("Verification failed. Please try again.");
+                    }}
+                    onExpire={() => {
+                      setTurnstileToken("");
+                      setSubmitError(
+                        "Verification expired. Please verify again.",
+                      );
+                    }}
+                  />
+                </div>
+
+                {submitError && (
+                  <p className="text-xs text-red-400">{submitError}</p>
+                )}
 
                 <div className="pt-2 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-zinc-400">
@@ -266,8 +329,9 @@ export const Contact = () => {
                   <button
                     type="submit"
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-all active:scale-95"
+                    disabled={isSubmitting || !turnstileToken}
                   >
-                    <span>Send Message</span>
+                    <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -278,4 +342,4 @@ export const Contact = () => {
       </div>
     </section>
   );
-};
+};;;;;;;;

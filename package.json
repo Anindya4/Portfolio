@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "^1.6.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.7",
     "lenis": "^1.1.20",

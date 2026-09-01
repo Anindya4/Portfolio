@@ -16,11 +16,11 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Resume', href: '#resume' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Capabilities', href: '#capabilities' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Resume", href: "#resume" },
+    { name: "Projects", href: "#projects" },
+    { name: "Capabilities", href: "#capabilities" },
+    // { name: 'Experience', href: '#experience' }, //TODO: IN FUTURE
+    { name: "Contact", href: "#contact" },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {

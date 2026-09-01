@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+resend
+pydantic-settings
+dotenv
+httpx
