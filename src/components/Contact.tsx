@@ -203,11 +203,9 @@ export const Contact = () => {
                       Software Development Engineer (Full-Stack / Backend)
                     </option>
                     <option value="Data Engineering">
-                      Data Engineer / LLM Pipelines
+                      Data Engineer / Data Scientist
                     </option>
-                    <option value="Consultation">
-                      Technical Consultation / Project Work
-                    </option>
+                    <option value="Consultation">Project Work</option>
                     <option value="Other">Other / Custom Role or Scope</option>
                   </select>
                 </div>
