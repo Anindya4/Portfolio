@@ -6,7 +6,8 @@ from email.message import EmailMessage
 from email.utils import formataddr
 from typing import Literal
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from upstash_redis.asyncio import Redis
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field, model_validator
 
@@ -15,6 +16,11 @@ from pydantic import BaseModel, EmailStr, Field, model_validator
 app = FastAPI()
 
 load_dotenv()
+
+redis = Redis(
+    url=os.getenv("KV_REST_API_URL"),
+    token=os.getenv("KV_REST_API_TOKEN")
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -48,6 +54,30 @@ class ContactData(BaseModel):
         return self
 
 
+# redis rate limit function:
+MAX_RATE_LIMIT = 5
+RATE_LIMIT_WINDOW = 60 * 60  # 3600s => 1hr
+
+async def check_rate_limit(cip: str) -> tuple[bool, int]:
+    key = f"contact_rate_limit:{cip}"
+    try:
+        curr_count = await redis.incr(key=key)
+        ttl = await redis.ttl(key=key)
+
+        # If key has no expiration (ttl == -1) or is freshly created (curr_count == 1)
+        if ttl == -1 or curr_count == 1:
+            await redis.expire(key=key, seconds=RATE_LIMIT_WINDOW)
+            ttl = RATE_LIMIT_WINDOW
+
+        if curr_count <= MAX_RATE_LIMIT:
+            return True, 0
+
+        retry_after = max(ttl, 0)
+        return False, retry_after
+    except Exception as e:
+        print("Redis error in check_rate_limit:", e)
+        return True, 0
+
 # verify the cloudflare token
 async def verify_turnstile(token: str) -> bool:
     secret_key = os.getenv("TURNSTILE_SECRET_KEY")
@@ -55,18 +85,20 @@ async def verify_turnstile(token: str) -> bool:
     if not secret_key:
         raise RuntimeError("TURNSTILE_SECRET_KEY is not configured")
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-            data={
-                "secret": secret_key,
-                "response": token,
-            },
-        )
-
-    result = response.json()
-
-    return result.get("success", False)
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            response = await client.post(
+                "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+                data={
+                    "secret": secret_key,
+                    "response": token,
+                },
+            )
+            result = response.json()
+            return result.get("success", False)
+    except Exception as e:
+        print("Turnstile verification error:", e)
+        return False
 
 
 # function to send mail:
@@ -119,7 +151,22 @@ def root():
     return f"Running server..."
 
 @app.post("/contact")
-async def send_contact_data(data: ContactData):
+async def send_contact_data(data: ContactData, request: Request):
+    client_ip = request.client.host if request.client else "127.0.0.1"
+
+    allowed, retry_after = await check_rate_limit(cip=client_ip)
+    
+    if not allowed:
+        retry_min = max((retry_after + 59) // 60, 1)
+        minute_text = "1 minute" if retry_min == 1 else f"{retry_min} minutes"
+        raise HTTPException(
+            status_code=429,
+            detail=f"Too many requests. Please try again after {minute_text}.",
+            headers={
+                "Retry-After": str(retry_after)
+            }
+        )
+
     verified_turnstile = await verify_turnstile(data.turnstile_token)
     
     if not verified_turnstile:
@@ -136,6 +183,6 @@ async def send_contact_data(data: ContactData):
             detail="Unable to send your message. Please try again later.",
         )
         
-    return {'sucess': True}
+    return {'success': True}
 
 

@@ -4,3 +4,4 @@ resend
 pydantic-settings
 dotenv
 httpx
+upstash-redis

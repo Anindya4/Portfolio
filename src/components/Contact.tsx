@@ -59,13 +59,15 @@ export const Contact = () => {
         }),
       });
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.detail || "Failed to send message");
       }
       setFormSubmitted(true);
       setTurnstileToken("");
-    } catch (error) {
+    } catch (error: any) {
       setSubmitError(
-        "Something went wrong while sending your message. Please try again.",
+        error?.message ||
+          "Something went wrong while sending your message. Please try again.",
       );
     } finally {
       setIsSubmitting(false);
@@ -317,7 +319,7 @@ export const Contact = () => {
                   />
                 </div>
                 {submitError && (
-                  <p className="text-xs text-red-400">{submitError}</p>
+                  <p className="text-xs text-red-400 text-center">{submitError}</p>
                 )}
                 <div className="pt-2 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-zinc-400">
