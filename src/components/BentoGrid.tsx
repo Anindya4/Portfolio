@@ -211,7 +211,10 @@ export const BentoGrid = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-24 md:py-32 relative border-b border-white/5">
+    <section
+      id="projects"
+      className="py-24 md:py-32 relative border-b border-white/5"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header with generous spacing */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-14 sm:mb-16 gap-8">
@@ -233,8 +236,8 @@ export const BentoGrid = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-medium tracking-wide transition-all duration-200 ${
                   selectedCategory === cat
-                    ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.02]'
-                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/5'
+                    ? "bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.02]"
+                    : "text-zinc-400 hover:text-zinc-100 hover:bg-white/5"
                 }`}
               >
                 {cat}

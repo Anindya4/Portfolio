@@ -316,11 +316,9 @@ export const Contact = () => {
                     }}
                   />
                 </div>
-
                 {submitError && (
                   <p className="text-xs text-red-400">{submitError}</p>
                 )}
-
                 <div className="pt-2 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-zinc-400">
                     Response time: &lt;24 hours

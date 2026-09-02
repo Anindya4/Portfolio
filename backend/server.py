@@ -1,10 +1,15 @@
 import os
+import ssl
 import httpx
+import smtplib
+from email.message import EmailMessage
+from email.utils import formataddr
 from typing import Literal
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field, model_validator
+
 
 # server:
 app = FastAPI()
@@ -64,6 +69,51 @@ async def verify_turnstile(token: str) -> bool:
     return result.get("success", False)
 
 
+# function to send mail:
+def send_email(data: ContactData):
+    gmail_address = os.getenv("GMAIL_ADDRESS")
+    contact_recipient = os.getenv("CONTACT_RECIPIENT")
+    gmail_app_password = os.getenv("GMAIL_APP_PASSWORD")
+    
+    if not gmail_address or not contact_recipient or not gmail_app_password:
+        raise RuntimeError('Gmail configuration is not complete')
+
+    message = EmailMessage()
+    
+    message["From"] = f"Anindya's Portfolio <{gmail_address}>"
+    message["To"] = contact_recipient
+    message["Reply-To"] = data.email
+    message["Subject"] = "New Portfolio Contact Message"
+    
+    email_body = (
+        f"Name: {data.name}\n"
+        f"Email: {data.email}\n"
+        f"Project Type: {data.projectType}\n"
+    )
+
+    if data.projectType == "Other":
+        email_body += f"Custom Role: {data.customRole}\n"
+
+    email_body += (
+        f"\n"
+        f"Message:\n"
+        f"{data.message}"
+    )
+
+    message.set_content(email_body)
+    
+    tls_context = ssl.create_default_context()
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=10) as server:
+            server.starttls(context=tls_context)
+            server.login(user=gmail_address, password= gmail_app_password)
+            server.send_message(msg=message)
+    except (smtplib.SMTPException, OSError):
+        raise RuntimeError('Email delivery failed') from None
+    
+    
+    
+    
 @app.get("/")
 def root():
     return f"Running server..."
@@ -77,5 +127,15 @@ async def send_contact_data(data: ContactData):
             status_code=403,
             detail="Turnstile verification failed",
         )
+    
+    try:
+        send_email(data=data)
+    except RuntimeError:
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to send your message. Please try again later.",
+        )
+        
+    return {'sucess': True}
 
-    return data
+
