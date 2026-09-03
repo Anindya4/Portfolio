@@ -124,7 +124,7 @@ export const ResumeSection = () => {
                     href={currentData.gdriveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-xs font-medium text-zinc-200 hover:text-white hover:border-white/30 hover:scale-105 hover:bg-zinc-800 transition-all shadow-sm"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/15 text-xs font-medium text-zinc-200 hover:text-white hover:border-white/30 hover:scale-105 hover:bg-zinc-800 transition-transform will-change-transform duration-300 shadow-sm"
                   >
                     <ExternalLink className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Open in Google Drive</span>
@@ -135,7 +135,7 @@ export const ResumeSection = () => {
                     href={currentData.pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-all active:scale-95"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-transform will-change-transform duration-300 ease-in-out active:scale-95"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>View / Download PDF</span>

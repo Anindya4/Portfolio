@@ -191,7 +191,7 @@ export const Contact = () => {
                 </p>
                 <button
                   onClick={() => setFormSubmitted(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-zinc-300 hover:scale-105 active:scale-95 hover:text-white transition-colors"
+                  className="px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-zinc-300 hover:scale-105 active:scale-95 hover:text-white transition-transform will-change-transform duration-250 ease-in-out"
                 >
                   Send another inquiry
                 </button>
@@ -337,7 +337,7 @@ export const Contact = () => {
 
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-all active:scale-95"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-transform will-change-transform duration-250 active:scale-95"
                     disabled={isSubmitting || !turnstileToken}
                   >
                     {isSubmitting ? (

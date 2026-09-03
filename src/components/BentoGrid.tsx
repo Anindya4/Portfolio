@@ -42,24 +42,25 @@ const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock
     <motion.div
       ref={cardRef}
       variants={cardVariants}
-      whileHover={{ scale: 1.018, y: -5 }}
+      whileHover={{ scale: 1.05, y: -5 }}
       style={{
-        willChange: 'transform, opacity',
-        backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
       }}
-      onMouseMove={handleMouseMove}
+      // onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onSelect}
-      className={`group relative ${project.gridSpan.desktop} ${project.gridSpan.height || 'min-h-[380px]'} bento-card cursor-pointer flex flex-col justify-between p-6 sm:p-8 overflow-hidden`}
+      className={`group relative ${project.gridSpan.desktop} ${project.gridSpan.height || "min-h-[380px]"} bento-card cursor-pointer flex flex-col justify-between p-6 sm:p-8 overflow-hidden`}
     >
       {/* Ultra-soft feathered micro cursor glow */}
       <div
-        className="pointer-events-none absolute -inset-px rounded-[1.25rem] transition-opacity duration-300 z-0"
+        className="pointer-events-none absolute -inset-px rounded-[1.25rem] transition-transform duration-300 z-0"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: 'radial-gradient(75px circle at var(--mouse-x, -100px) var(--mouse-y, -100px), rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, transparent 80%)',
+          background:
+            "radial-gradient(75px circle at var(--mouse-x, -100px) var(--mouse-y, -100px), rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.015) 50%, transparent 80%)",
         }}
       />
 
@@ -82,27 +83,27 @@ const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock
                 {project.status}
               </span>
             )}
-            <div className="w-9 h-9 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:bg-zinc-800 transition-all group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <div className="w-9 h-9 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:bg-zinc-800 transition-transform will-change-transform group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform will-change-transform" />
             </div>
           </div>
         </div>
 
         {/* Middle: Interactive Mock or Image Showcase with clean margins */}
         <div className="my-5 w-full flex-1 flex items-center justify-center">
-          <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-[1.01] bg-[#13161c]">
+          <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden transition-transform will-change-transform duration-300 group-hover:scale-[1.01] bg-[#13161c]">
             {project.imageUrl ? (
               <div className="w-full h-full min-h-[180px] sm:min-h-[210px] rounded-xl overflow-hidden border border-white/10 bg-zinc-950/80 relative">
                 <img
                   src={project.imageUrl}
                   alt={project.title}
                   loading="eager"
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition-transform will-change-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               </div>
             ) : (
-              renderMock(project.mockType || 'football')
+              renderMock(project.mockType || "football")
             )}
           </div>
         </div>
@@ -110,7 +111,7 @@ const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock
         {/* Bottom Row: Title, Description & Tags */}
         <div className="mt-4 pt-4 border-t border-white/5 space-y-2.5">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-            <h3 className="text-lg sm:text-xl font-display font-semibold text-zinc-100 group-hover:text-white transition-colors">
+            <h3 className="text-lg sm:text-xl font-display font-semibold text-zinc-100 group-hover:text-white transition-transform will-change-transform">
               {project.title}
             </h3>
             <span className="text-xs font-normal text-zinc-400 font-sans">
@@ -139,7 +140,7 @@ const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock
               )}
             </div>
 
-            <span className="text-xs font-medium text-zinc-400 group-hover:text-zinc-200 transition-colors flex items-center gap-1">
+            <span className="text-xs font-medium text-zinc-400 group-hover:text-zinc-200 transition-transform will-change-transform flex items-center gap-1">
               <span>Inspect</span>
             </span>
           </div>
@@ -221,7 +222,7 @@ export const BentoGrid = () => {
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>Core Projects &bull; Bento Layout</span>
+              <span>Core Projects</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-zinc-100">
               FEATURED PROJECTS
@@ -234,7 +235,7 @@ export const BentoGrid = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-medium tracking-wide transition-all duration-200 ${
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-[13px] font-medium tracking-wide transition-transform will-change-transform duration-200 ease-in-out ${
                   selectedCategory === cat
                     ? "bg-zinc-100 text-zinc-950 font-semibold shadow-md scale-[1.02]"
                     : "text-zinc-400 hover:text-zinc-100 hover:bg-white/5"
@@ -272,12 +273,13 @@ export const BentoGrid = () => {
         {/* Centered View Complete Project Archive Button */}
         <div className="mt-14 pt-8 border-t border-white/5 flex items-center justify-center">
           <button
+            type="button"
             onClick={() => setArchiveModalOpen(true)}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-zinc-900/90 border border-white/15 text-sm font-semibold text-zinc-100 hover:text-white hover:bg-zinc-800 hover:border-white/35 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.12)] transition-all duration-300 ease-out group active:scale-95 shadow-xl cursor-pointer"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-zinc-900/90 border border-white/15 text-sm font-semibold text-zinc-100  hover:text-white hover:bg-zinc-800 hover:border-white/35 hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.12)] transition-transform will-change-transform duration-300 ease-in-out group active:scale-95 shadow-xl cursor-pointer"
           >
-            <FolderGit2 className="w-4 h-4 text-emerald-400 transition-transform duration-300 group-hover:scale-110" />
+            <FolderGit2 className="w-4 h-4 text-emerald-400" />
             <span>View Full Project Archive ({PROJECTS_DATA.length})</span>
-            <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-300" />
+            <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-transform will-change-transform duration-300" />
           </button>
         </div>
       </div>

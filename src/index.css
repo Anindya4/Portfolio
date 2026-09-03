@@ -51,6 +51,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
   overflow: hidden;
   isolation: isolate;
   transform: translateZ(0);
@@ -78,13 +79,15 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: transform 0.35s ease-in-out;
+    will-change: transform;
   pointer-events: none;
   z-index: 1;
 }
 
 .bento-card:hover {
-  transform: translateY(-5px) scale(1.018) translateZ(0);
+  transform: translateY(-5px) scale(1.05) translateZ(0);
+    will-change: transform;
   border-color: rgba(255, 255, 255, 0.35);
   box-shadow: 
     0 0 25px rgba(255, 255, 255, 0.16),
