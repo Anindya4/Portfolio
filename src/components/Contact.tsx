@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { Turnstile } from "@marsidev/react-turnstile";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Check, Send, ArrowUpRight, Sparkles } from 'lucide-react';
+import {
+  Copy,
+  Check,
+  Send,
+  ArrowUpRight,
+  Sparkles,
+  Loader,
+} from "lucide-react";
 import { PERSONAL_INFO } from '../data/portfolioData';
 import {
   GithubIcon,
@@ -184,7 +191,7 @@ export const Contact = () => {
                 </p>
                 <button
                   onClick={() => setFormSubmitted(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-zinc-300 hover:text-white transition-colors"
+                  className="px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-zinc-300 hover:scale-105 active:scale-95 hover:text-white transition-colors"
                 >
                   Send another inquiry
                 </button>
@@ -319,7 +326,9 @@ export const Contact = () => {
                   />
                 </div>
                 {submitError && (
-                  <p className="text-xs text-red-400 text-center">{submitError}</p>
+                  <p className="text-xs text-red-400 text-center">
+                    {submitError}
+                  </p>
                 )}
                 <div className="pt-2 flex items-center justify-between">
                   <span className="text-[11px] font-mono text-zinc-400">
@@ -331,8 +340,17 @@ export const Contact = () => {
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:scale-105 hover:shadow-md transition-all active:scale-95"
                     disabled={isSubmitting || !turnstileToken}
                   >
-                    <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
-                    <Send className="w-3.5 h-3.5" />
+                    {isSubmitting ? (
+                      <>
+                        <span>Sending...</span>
+                        <Loader className="w-3.5 h-3.5 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <Send className="w-3.5 h-3.5" />
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

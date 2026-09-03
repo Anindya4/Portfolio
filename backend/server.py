@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from upstash_redis.asyncio import Redis
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, EmailStr, Field, model_validator
+from pydantic import BaseModel, EmailStr, Field, model_validator, ConfigDict
 
 
 # server:
@@ -35,6 +35,8 @@ app.add_middleware(
 
 # Schema for validating contact data received from the client:
 class ContactData(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+    
     email: EmailStr
     name: str = Field(min_length=1, max_length=100)
     message: str = Field(min_length=1, max_length=5000)
@@ -47,6 +49,7 @@ class ContactData(BaseModel):
         "Other"
     ]
     turnstile_token: str = Field(min_length=1) #cloudflare token 
+    
     @model_validator(mode="after")
     def check_project_type(self):
         if self.projectType == "Other" and not self.customRole:
@@ -184,5 +187,4 @@ async def send_contact_data(data: ContactData, request: Request):
         )
         
     return {'success': True}
-
 

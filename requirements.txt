@@ -2,6 +2,7 @@ fastapi
 uvicorn
 resend
 pydantic-settings
-dotenv
+python-dotenv
 httpx
 upstash-redis
+email-validator
