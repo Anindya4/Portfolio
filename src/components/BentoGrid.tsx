@@ -5,7 +5,7 @@ import { Project, PROJECTS_DATA } from '../data/portfolioData';
 import { FootballVisionMock, PlantDiseaseMock, ScraperMock, YouTubeChatbotMock } from './ProjectCardMocks';
 import { ProjectModal } from './ProjectModal';
 import { ProjectArchiveModal } from './ProjectArchiveModal';
-
+import { FolderGit2Icon } from "../icons/FolderGit2Icon";
 interface ProjectCardProps {
   project: Project;
   onSelect: () => void;
@@ -277,9 +277,9 @@ export const BentoGrid = () => {
             onClick={() => setArchiveModalOpen(true)}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-zinc-900/90 border border-white/15 text-sm font-semibold text-zinc-100  hover:text-white hover:bg-zinc-800 hover:border-white/35 hover:scale-110 hover:shadow-[0_0_30px_rgba(255,255,255,0.12)] transition-transform will-change-transform duration-300 ease-in-out group active:scale-95 shadow-xl cursor-pointer"
           >
-            <FolderGit2 className="w-4 h-4 text-emerald-400" />
+            <FolderGit2Icon className="text-emerald-400" />
             <span>View Full Project Archive ({PROJECTS_DATA.length})</span>
-            <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-transform will-change-transform duration-300" />
+            <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-white group-hover:translate-x-1.5 transition-transform will-change-transform duration-300" />
           </button>
         </div>
       </div>

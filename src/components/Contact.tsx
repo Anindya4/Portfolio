@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import { Turnstile } from "@marsidev/react-turnstile";
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Copy,
-  Check,
-  Send,
-  ArrowUpRight,
-  Sparkles,
-  Loader,
-} from "lucide-react";
+import { ArrowUpRight, Loader } from "lucide-react";
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { TwitterIcon } from "./Icons";
+import { GlowCard } from "./GlowCard";
 import {
+  ClipboardCheckIcon,
+  CopyIcon,
   GithubIcon,
-  TwitterIcon,
   LinkedinIcon,
+  LeetcodeIcon,
   GmailIcon,
-  LeetCodeIcon,
-} from "./Icons";
-import { GlowCard } from './GlowCard';
+  SparklesIcon,
+  SendIcon,
+  MailCheckIcon,
+  RotateCWIcon,
+} from "../icons";
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const [copyHovered, setCopyHovered] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +36,6 @@ export const Contact = () => {
   const copyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2400);
   };
 
   // Before submitting the form
@@ -84,15 +83,15 @@ export const Contact = () => {
   const getPlatformIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
       case "github":
-        return <GithubIcon className="w-3.5 h-3.5" />;
+        return <GithubIcon className="text-[#ADADAD]" />;
       case "twitter":
-        return <TwitterIcon className="w-3.5 h-3.5" />;
+        return <TwitterIcon className="w-4 h-4" />;
       case "linkedin":
-        return <LinkedinIcon className="w-3.5 h-3.5" />;
+        return <LinkedinIcon className="text-blue-500" />;
       case "gmail":
-        return <GmailIcon className="w-3.5 h-3.5" />;
+        return <GmailIcon className="text-[#e74240]" />;
       case "leetcode":
-        return <LeetCodeIcon className="w-3.5 h-3.5" />;
+        return <LeetcodeIcon className="text-yellow-400" />;
       default:
         return <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500" />;
     }
@@ -134,18 +133,134 @@ export const Contact = () => {
                     <span className="text-sm font-mono text-zinc-200 truncate">
                       {PERSONAL_INFO.email}
                     </span>
-                    <button
-                      type="button"
-                      onClick={copyEmail}
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white transition-colors"
-                      title="Copy email"
+                    <div
+                      className="relative inline-flex items-center justify-center"
+                      onMouseEnter={() => setCopyHovered(true)}
+                      onMouseLeave={() => setCopyHovered(false)}
                     >
-                      {copied ? (
-                        <Check className="w-4 h-4 text-emerald-400" />
-                      ) : (
-                        <Copy className="w-4 h-4" />
-                      )}
-                    </button>
+                      {/* Pop up tooltip */}
+                      <AnimatePresence>
+                        {(copyHovered || copied) && (
+                          <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 pointer-events-none z-30">
+                            <motion.div
+                              layout
+                              initial={{ opacity: 0, y: 6, scale: 0.92 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: 4, scale: 0.92 }}
+                              transition={{
+                                opacity: { duration: 0.16, ease: "easeOut" },
+                                y: { duration: 0.16, ease: "easeOut" },
+                                scale: { duration: 0.16, ease: "easeOut" },
+                                layout: {
+                                  duration: 0.2,
+                                  ease: [0.16, 1, 0.3, 1],
+                                },
+                              }}
+                              className={`relative px-3 py-1.5 rounded-xl text-xs font-mono shadow-xl shadow-black/40 whitespace-nowrap flex items-center justify-center transition-colors duration-200 ${
+                                copied
+                                  ? "bg-emerald-600 text-white"
+                                  : "bg-[#e0e0d2] text-zinc-950 font-medium"
+                              }`}
+                            >
+                              <AnimatePresence mode="wait" initial={false}>
+                                {copied ? (
+                                  <motion.span
+                                    key="copied"
+                                    initial={{
+                                      opacity: 0,
+                                      y: 4,
+                                      filter: "blur(2px)",
+                                    }}
+                                    animate={{
+                                      opacity: 1,
+                                      y: 0,
+                                      filter: "blur(0px)",
+                                    }}
+                                    exit={{
+                                      opacity: 0,
+                                      y: -4,
+                                      filter: "blur(2px)",
+                                    }}
+                                    transition={{
+                                      duration: 0.14,
+                                      ease: "easeOut",
+                                    }}
+                                    className="font-semibold tracking-wide flex items-center"
+                                  >
+                                    Copied!
+                                  </motion.span>
+                                ) : (
+                                  <motion.span
+                                    key="copy"
+                                    initial={{
+                                      opacity: 0,
+                                      y: 4,
+                                      filter: "blur(2px)",
+                                    }}
+                                    animate={{
+                                      opacity: 1,
+                                      y: 0,
+                                      filter: "blur(0px)",
+                                    }}
+                                    exit={{
+                                      opacity: 0,
+                                      y: -4,
+                                      filter: "blur(2px)",
+                                    }}
+                                    transition={{
+                                      duration: 0.14,
+                                      ease: "easeOut",
+                                    }}
+                                    className="flex items-center gap-1.5"
+                                  >
+                                    <span>Copy</span>
+                                    <span className="bg-black/10 px-1.5 py-0.5 rounded text-[11px] font-mono leading-none text-zinc-900">
+                                      email
+                                    </span>
+                                  </motion.span>
+                                )}
+                              </AnimatePresence>
+
+                              {/* Downward triangle arrow */}
+                              <motion.svg
+                                layout="position"
+                                className={`absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] transition-colors duration-200 ${
+                                  copied ? "text-emerald-600" : "text-[#e0e0d2]"
+                                }`}
+                                width="10"
+                                height="5"
+                                viewBox="0 0 10 5"
+                                fill="currentColor"
+                              >
+                                <path d="M0 0L5 5L10 0Z" />
+                              </motion.svg>
+                            </motion.div>
+                          </div>
+                        )}
+                      </AnimatePresence>
+
+                      <button
+                        type="button"
+                        onClick={copyEmail}
+                        onFocus={() => setCopyHovered(true)}
+                        onBlur={() => setCopyHovered(false)}
+                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white transition-colors cursor-pointer flex items-center justify-center"
+                        aria-label="Copy email to clipboard"
+                      >
+                        <AnimatePresence mode="wait" initial={false}>
+                          {copied ? (
+                            <ClipboardCheckIcon
+                              key="copied"
+                              size={17}
+                              onComplete={() => setCopied(false)}
+                              className="text-emerald-400"
+                            />
+                          ) : (
+                            <CopyIcon key="copy" size={17} />
+                          )}
+                        </AnimatePresence>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -155,17 +270,18 @@ export const Contact = () => {
                 <div className="text-xs font-mono text-zinc-400 mb-3">
                   Network &amp; Profiles
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex  gap-2">
                   {Object.entries(PERSONAL_INFO.social).map(
                     ([platform, url]) => (
                       <a
                         key={platform}
                         href={url}
+                        draggable="false"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/5 text-xs text-zinc-300 hover:text-white hover:border-white/15 transition-all uppercase font-mono"
+                        className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-white/5 text-xs uppercase text-zinc-300 hover:text-white hover:border-white/15 hover:scale-105 active:scale-95 transition-transform will-change-transform duration-200 font-mono select-none"
                       >
-                        {getPlatformIcon(platform)}
+                        <span>{getPlatformIcon(platform)}</span>
                         <span>{platform}</span>
                       </a>
                     ),
@@ -179,21 +295,31 @@ export const Contact = () => {
           <GlowCard className="col-span-12 lg:col-span-6 p-6 sm:p-8">
             {formSubmitted ? (
               <div className="h-full min-h-[380px] flex flex-col items-center justify-center text-center p-6 space-y-4">
-                <div className="w-12 h-12 rounded-full bg-emerald-950/50 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                  <Check className="w-6 h-6" />
+                <div className="w-20 h-20 rounded-full bg-emerald-950/50 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                  <MailCheckIcon
+                    size={42}
+                    className="shrink-0 pointer-events-none"
+                  />
                 </div>
                 <h3 className="text-xl font-display font-semibold text-zinc-100">
                   Message Dispatched
                 </h3>
-                <p className="text-xs text-zinc-400 max-w-sm">
+                <p className="text-sm text-zinc-400 max-w-sm">
                   Thank you for reaching out. Your transmission has been
                   received and I typically respond within 24 business hours.
                 </p>
                 <button
+                  type="button"
                   onClick={() => setFormSubmitted(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs text-zinc-300 hover:scale-105 active:scale-95 hover:text-white transition-transform will-change-transform duration-250 ease-in-out"
+                  className="group inline-flex w-56 h-12 items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#e1e1a9] border border-black/10 text-base font-semibold text-center text-zinc-950 hover:scale-105 active:scale-95 transition-transform will-change-transform duration-200 ease-in-out select-none cursor-pointer"
                 >
-                  Send another inquiry
+                  <RotateCWIcon
+                    size={15}
+                    className="shrink-0 pointer-events-none text-zinc-950 group-hover:text-black transition-colors"
+                  />
+                  <span className="inline-block transition-colors">
+                    Send another inquiry
+                  </span>
                 </button>
               </div>
             ) : (
@@ -268,9 +394,14 @@ export const Contact = () => {
                       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden space-y-1.5"
                     >
-                      <label className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
-                        <Sparkles className="w-3 h-3" />
-                        <span>Specify Your Desired Role / Opportunity</span>
+                      <label className="text-xs font-mono text-emerald-400 flex items-center gap-1.5 select-none">
+                        <SparklesIcon
+                          size={14}
+                          className="shrink-0 pointer-events-none"
+                        />
+                        <span className="inline-block">
+                          Specify Your Desired Role / Opportunity
+                        </span>
                       </label>
                       <input
                         type="text"
@@ -348,7 +479,7 @@ export const Contact = () => {
                     ) : (
                       <>
                         <span>Send Message</span>
-                        <Send className="w-3.5 h-3.5" />
+                        <SendIcon />
                       </>
                     )}
                   </button>

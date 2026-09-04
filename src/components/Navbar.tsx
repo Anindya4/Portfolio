@@ -87,6 +87,7 @@ export const Navbar = () => {
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, "#contact")}
+                draggable="false"
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-950 hover:bg-white transition-transform will-change-transform hover:scale-[1.05] active:scale-[0.98]"
               >
                 <span>Get in Touch</span>

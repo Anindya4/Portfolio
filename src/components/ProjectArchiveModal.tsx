@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Search, ExternalLink, ArrowUpRight, FolderGit2 } from 'lucide-react';
 import { Project, PROJECTS_DATA } from '../data/portfolioData';
-import { GithubIcon } from './Icons';
+import { GithubIcon, ExternalLinkIcon } from "../icons";
 
 interface ProjectArchiveModalProps {
   isOpen: boolean;
@@ -96,7 +96,8 @@ export const ProjectArchiveModal: React.FC<ProjectArchiveModalProps> = ({
                     Project Archive
                   </h2>
                   <p className="text-xs font-mono text-zinc-400">
-                    Comprehensive catalog of systems, experiments &amp; AI models
+                    Comprehensive catalog of systems, experiments &amp; AI
+                    models
                   </p>
                 </div>
               </div>
@@ -124,7 +125,7 @@ export const ProjectArchiveModal: React.FC<ProjectArchiveModalProps> = ({
                 />
                 {searchQuery && (
                   <button
-                    onClick={() => setSearchQuery('')}
+                    onClick={() => setSearchQuery("")}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 text-xs"
                   >
                     Clear
@@ -140,8 +141,8 @@ export const ProjectArchiveModal: React.FC<ProjectArchiveModalProps> = ({
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap flex-shrink-0 ${
                       selectedCategory === cat
-                        ? 'bg-zinc-100 text-zinc-950 font-semibold shadow'
-                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
+                        ? "bg-zinc-100 text-zinc-950 font-semibold shadow"
+                        : "text-zinc-400 hover:text-zinc-200 hover:bg-white/5"
                     }`}
                   >
                     {cat}
@@ -165,8 +166,12 @@ export const ProjectArchiveModal: React.FC<ProjectArchiveModalProps> = ({
                     <tr className="border-b border-white/10 text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
                       <th className="py-3 px-3 w-16">Year</th>
                       <th className="py-3 px-3">Project Title</th>
-                      <th className="py-3 px-3 hidden md:table-cell w-40 whitespace-nowrap">Track</th>
-                      <th className="py-3 px-3 hidden sm:table-cell">Built With</th>
+                      <th className="py-3 px-3 hidden md:table-cell w-40 whitespace-nowrap">
+                        Track
+                      </th>
+                      <th className="py-3 px-3 hidden sm:table-cell">
+                        Built With
+                      </th>
                       <th className="py-3 px-3 text-right w-24">Links</th>
                     </tr>
                   </thead>
@@ -224,22 +229,24 @@ export const ProjectArchiveModal: React.FC<ProjectArchiveModalProps> = ({
                               <a
                                 href={project.links.github}
                                 target="_blank"
+                                draggable="false"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-300 hover:text-white transition-colors"
+                                className="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-300 hover:text-white transition-colors shrink-0"
                                 title="View GitHub Repository"
                               >
-                                <GithubIcon className="w-3.5 h-3.5" />
+                                <GithubIcon />
                               </a>
                             )}
                             {project.links.live && (
                               <a
                                 href={project.links.live}
                                 target="_blank"
+                                draggable="false"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-300 hover:text-white transition-colors"
+                                className="w-8 h-8 inline-flex items-center justify-center rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-300 hover:text-white transition-colors shrink-0"
                                 title="Open Live Project / Demo"
                               >
-                                <ExternalLink className="w-3.5 h-3.5" />
+                                <ExternalLinkIcon className="text-emerald-500" />
                               </a>
                             )}
                           </div>
@@ -254,18 +261,29 @@ export const ProjectArchiveModal: React.FC<ProjectArchiveModalProps> = ({
             {/* Footer Summary */}
             <div className="p-4 px-6 border-t border-white/10 bg-zinc-950/80 flex items-center justify-between text-xs font-mono text-zinc-400">
               <span>
-                Displaying <strong className="text-zinc-200">{filteredProjects.length}</strong> of{' '}
-                <strong className="text-zinc-200">{PROJECTS_DATA.length}</strong> Projects
+                Displaying{" "}
+                <strong className="text-zinc-200">
+                  {filteredProjects.length}
+                </strong>{" "}
+                of{" "}
+                <strong className="text-zinc-200">
+                  {PROJECTS_DATA.length}
+                </strong>{" "}
+                Projects
               </span>
 
               <a
                 href="https://github.com/anindyanandi"
                 target="_blank"
+                draggable="false"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors"
               >
                 <span>Visit GitHub Profile</span>
-                <ArrowUpRight className="w-3 h-3" />
+                <ExternalLinkIcon
+                  className="text-emerald-500 -translate-y-0.5"
+                  size={14}
+                />
               </a>
             </div>
           </motion.div>

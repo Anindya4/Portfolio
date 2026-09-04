@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
-import { ArrowDown, Copy, Check, MapPin, FileText, X } from "lucide-react";
+import { ArrowDown, MapPin, FileText, X } from "lucide-react";
 import { PERSONAL_INFO } from "../data/portfolioData";
 import { GlowCard } from "./GlowCard";
+import { CopyIcon } from "../icons/CopyIcon";
+import { ClipboardCheckIcon } from "../icons/ClipboardCheckIcon";
+import { FileTextIcon } from "../icons/FileTextIcon";
 
 export const Hero = () => {
   const [copied, setCopied] = useState(false);
+  const [copyHovered, setCopyHovered] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
   const [photoModalOpen, setPhotoModalOpen] = useState(false);
 
@@ -36,7 +40,6 @@ export const Hero = () => {
   const copyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2400);
   };
 
   const line1Variants: Variants = {
@@ -101,7 +104,7 @@ export const Hero = () => {
           </div>
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900/40 border border-white/5 text-zinc-400">
-            <MapPin className="w-3.5 h-3.5 text-zinc-500" />
+            <MapPin className="w-3.5 h-3.5 text-red-500" />
             <span>{PERSONAL_INFO.location}</span>
           </div>
         </motion.div>
@@ -165,7 +168,7 @@ export const Hero = () => {
                     duration: 0.8,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="font-display font-semibold text-zinc-100 px-3 py-1 rounded-xl bg-zinc-900/90 border border-white/10 text-sm sm:text-lg md:text-xl text-emerald-400 whitespace-nowrap shadow-sm"
+                  className="font-display font-semibold px-3 py-1 rounded-xl bg-zinc-900/90 border border-white/10 text-sm sm:text-lg md:text-xl text-emerald-400 whitespace-nowrap shadow-sm"
                 >
                   {roles[roleIndex]}
                 </motion.span>
@@ -213,6 +216,7 @@ export const Hero = () => {
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <a
                 href="#projects"
+                draggable="false"
                 onClick={(e) => {
                   e.preventDefault();
                   document
@@ -227,6 +231,7 @@ export const Hero = () => {
 
               <a
                 href="#resume"
+                draggable="false"
                 onClick={(e) => {
                   e.preventDefault();
                   document
@@ -235,22 +240,130 @@ export const Hero = () => {
                 }}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.12)] transition-transform will-change-transform duration-300 ease-out active:scale-95"
               >
-                <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                <FileTextIcon className=" text-emerald-400" />
                 <span>View CV</span>
               </a>
 
-              <button
-                type="button"
-                onClick={copyEmail}
-                className="p-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.12)] transition-transform will-change-transform duration-300 ease-out active:scale-95 cursor-pointer"
-                title="Copy email to clipboard"
+              <div
+                className="relative inline-flex items-center justify-center"
+                onMouseEnter={() => setCopyHovered(true)}
+                onMouseLeave={() => setCopyHovered(false)}
               >
-                {copied ? (
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                ) : (
-                  <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                )}
-              </button>
+                {/* Pop up tooltip */}
+                <AnimatePresence>
+                  {(copyHovered || copied) && (
+                    <div className="absolute bottom-full mb-2.5 left-1/2 -translate-x-1/2 pointer-events-none z-30">
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, y: 6, scale: 0.92 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 4, scale: 0.92 }}
+                        transition={{
+                          opacity: { duration: 0.16, ease: "easeOut" },
+                          y: { duration: 0.16, ease: "easeOut" },
+                          scale: { duration: 0.16, ease: "easeOut" },
+                          layout: { duration: 0.2, ease: [0.16, 1, 0.3, 1] },
+                        }}
+                        className={`relative px-3 py-1.5 rounded-xl text-xs font-mono shadow-xl shadow-black/40 whitespace-nowrap flex items-center justify-center transition-colors duration-200 ${
+                          copied
+                            ? "bg-emerald-600 text-white"
+                            : "bg-[#e0e0d2] text-zinc-950 font-medium"
+                        }`}
+                      >
+                        <AnimatePresence mode="wait" initial={false}>
+                          {copied ? (
+                            <motion.span
+                              key="copied"
+                              initial={{
+                                opacity: 0,
+                                y: 4,
+                                filter: "blur(2px)",
+                              }}
+                              animate={{
+                                opacity: 1,
+                                y: 0,
+                                filter: "blur(0px)",
+                              }}
+                              exit={{ opacity: 0, y: -4, filter: "blur(2px)" }}
+                              transition={{ duration: 0.14, ease: "easeOut" }}
+                              className="font-semibold tracking-wide flex items-center"
+                            >
+                              Copied!
+                            </motion.span>
+                          ) : (
+                            <motion.span
+                              key="copy"
+                              initial={{
+                                opacity: 0,
+                                y: 4,
+                                filter: "blur(2px)",
+                              }}
+                              animate={{
+                                opacity: 1,
+                                y: 0,
+                                filter: "blur(0px)",
+                              }}
+                              exit={{ opacity: 0, y: -4, filter: "blur(2px)" }}
+                              transition={{ duration: 0.14, ease: "easeOut" }}
+                              className="flex items-center gap-1.5"
+                            >
+                              <span>Copy</span>
+                              <span className="bg-black/10 px-1.5 py-0.5 rounded text-[11px] font-mono leading-none text-zinc-900">
+                                email
+                              </span>
+                            </motion.span>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Downward triangle arrow */}
+                        <motion.svg
+                          layout="position"
+                          className={`absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] transition-colors duration-200 ${
+                            copied ? "text-emerald-600" : "text-[#e0e0d2]"
+                          }`}
+                          width="10"
+                          height="5"
+                          viewBox="0 0 10 5"
+                          fill="currentColor"
+                        >
+                          <path d="M0 0L5 5L10 0Z" />
+                        </motion.svg>
+                      </motion.div>
+                    </div>
+                  )}
+                </AnimatePresence>
+
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  onFocus={() => setCopyHovered(true)}
+                  onBlur={() => setCopyHovered(false)}
+                  className="p-2.5 rounded-full bg-zinc-900 border border-white/10 text-xs font-mono text-zinc-300 hover:text-white hover:border-white/30 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.12)] transition-transform will-change-transform duration-300 ease-out active:scale-95 cursor-pointer flex items-center justify-center min-w-[38px] min-h-[38px]"
+                  aria-label="Copy email to clipboard"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {copied ? (
+                      <ClipboardCheckIcon
+                        key="copied"
+                        size={17}
+                        onComplete={() => setCopied(false)}
+                        className="text-emerald-400"
+                      />
+                    ) : (
+                      <motion.div
+                        key="copy"
+                        initial={{ scale: 0.6, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.6, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                        className="flex items-center justify-center"
+                      >
+                        <CopyIcon size={17} className="text-zinc-400" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </div>
             </div>
 
             <p className="text-xs text-zinc-500 font-mono">
@@ -352,4 +465,4 @@ export const Hero = () => {
       </AnimatePresence>
     </section>
   );
-};;;;;;;;;;
+};

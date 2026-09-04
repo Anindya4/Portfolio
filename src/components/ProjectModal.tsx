@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ExternalLink } from 'lucide-react';
 import { Project } from '../data/portfolioData';
 import { FootballVisionMock, PlantDiseaseMock, ScraperMock, YouTubeChatbotMock } from './ProjectCardMocks';
-import { GithubIcon } from './Icons';
+import { GithubIcon, ExternalLinkIcon } from "../icons";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -214,11 +214,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               {project.links.github && (
                 <a
                   href={project.links.github}
+                  draggable="false"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:scale-105 transition-transform will-change-transform hover:bg-zinc-800 active:scale-95 "
                 >
-                  <GithubIcon className="w-3.5 h-3.5" />
+                  <GithubIcon />
                   <span>GitHub Repository</span>
                 </a>
               )}
@@ -227,11 +228,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <a
                   href={project.links.live}
                   target="_blank"
+                  draggable="false"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:scale-105 transition-transform will-change-transform active:scale-95"
                 >
                   <span>Project Link</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLinkIcon className="text-emerald-600" />
                 </a>
               )}
             </div>
