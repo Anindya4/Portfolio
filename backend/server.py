@@ -58,7 +58,7 @@ class ContactData(BaseModel):
 
 
 # redis rate limit function:
-MAX_RATE_LIMIT = 10
+MAX_RATE_LIMIT = 5
 RATE_LIMIT_WINDOW = 60 * 60  # 3600s => 1hr
 
 async def check_rate_limit(cip: str) -> tuple[bool, int]:
