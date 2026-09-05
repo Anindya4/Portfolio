@@ -2,7 +2,7 @@ export interface Project {
   id: string;
   title: string;
   subtitle: string;
-  category: 'CV + NLP' | 'Machine Learning' | 'Data Engineering' | 'Full Stack';
+  category: "CV + NLP" | "Machine Learning" | "Data Engineering" | "Full Stack";
   year: string;
   description: string;
   fullDescription: string;
@@ -21,7 +21,26 @@ export interface Project {
   featured?: boolean;
   status?: string;
   deliverables?: string[];
-  mockType?: 'football' | 'plant' | 'scraper' | 'youtube';
+  mockType?:
+    | "football"
+    | "plant"
+    | "scraper"
+    | "youtube"
+    | "cv"
+    | "vision"
+    | "ml"
+    | "metrics"
+    | "diagnostics"
+    | "pipeline"
+    | "terminal"
+    | "chat"
+    | "assistant"
+    | "webpage"
+    | "browser"
+    | "ide"
+    | "app"
+    | "auto"
+    | (string & {});
   imageUrl?: string;
 }
 
@@ -139,6 +158,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     mockType: "football",
   },
+  /*
   {
     id: "ppe-detection",
     title: "Industrial PPE & Helmet Detection",
@@ -216,6 +236,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     mockType: "youtube",
   },
+  */
 
   // ================= Machine Learning =================
   {
@@ -260,6 +281,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     mockType: "plant",
   },
+  /*
   {
     id: "churn-prediction",
     title: "Customer Churn & LTV Forecasting",
@@ -345,6 +367,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     mockType: "plant",
   },
+  */
 
   // ================= Data Engineering =================
   {
@@ -389,6 +412,7 @@ export const PROJECTS_DATA: Project[] = [
     ],
     mockType: "scraper",
   },
+  /*
   {
     id: "market-stream-etl",
     title: "Distributed Market Data ETL Pipeline",
@@ -472,7 +496,51 @@ export const PROJECTS_DATA: Project[] = [
       "DuckDB Query Engine",
       "Automated Integrity Tests",
     ],
-    mockType: "scraper",
+    mockType: "architecture",
+  },
+  */
+  {
+    id: "zomato-ai-lakehouse",
+    title: "Zomato Enterprise Data Platform",
+    subtitle: "35M+ Records Lakehouse with dbt & Text-to-SQL AI",
+    category: "Data Engineering",
+    year: "2024",
+    description:
+      "Enterprise data platform processing 35M+ food delivery transactions on Snowflake and dbt, featuring automated Airflow batch orchestration and an LLM-powered Text-to-SQL interface.",
+    fullDescription:
+      "An end-to-end modern data platform and analytics system for food delivery intelligence at scale. Ingests 35M+ records into Snowflake using automated external stages, models dimensional star schemas and delivery SLAs with dbt, and provides a conversational Text-to-SQL and review sentiment engine powered by OpenAI and Streamlit.",
+    metrics: [
+      { label: "Data Scale", value: "35M+ Records" },
+      { label: "Pipeline Schedule", value: "Daily Airflow DAG" },
+      { label: "AI Interface", value: "Text-to-SQL + RAG" },
+    ],
+    tags: [
+      "Snowflake",
+      "dbt Core",
+      "Apache Airflow",
+      "Python",
+      "OpenAI API",
+      "SQL",
+      "Streamlit",
+      "Docker",
+    ],
+    links: {
+      github: "https://github.com/Anindya4",
+    },
+    gridSpan: {
+      desktop: "col-span-12 lg:col-span-6",
+      height: "min-h-[440px]",
+    },
+    accentColor: "#e23744",
+    featured: false,
+    status: "Production Lakehouse",
+    deliverables: [
+      "Snowflake 35M+ Row Lakehouse",
+      "dbt Star Schema & Analytical Marts",
+      "Text-to-SQL AI Streamlit App",
+      "Daily Airflow Orchestration DAG",
+    ],
+    mockType: "architecture",
   },
 
   // ================= Full Stack =================
@@ -516,9 +584,10 @@ export const PROJECTS_DATA: Project[] = [
       "RAG Vector Pipeline",
       "Interactive Frontend UI",
     ],
-    mockType: "youtube",
+    mockType: "webpage",
   },
-  {
+
+  /*{
     id: "ai-code-reviewer",
     title: "Automated PR Code Reviewer",
     subtitle: "Full-Stack GitHub Bot & Static Analysis Suite",
@@ -558,7 +627,7 @@ export const PROJECTS_DATA: Project[] = [
       "React Dashboard",
       "FastAPI Review Engine",
     ],
-    mockType: "youtube",
+    mockType: "webpage",
   },
   {
     id: "collab-canvas",
@@ -601,7 +670,49 @@ export const PROJECTS_DATA: Project[] = [
       "Markdown Live Previewer",
       "Redis Pub/Sub Layer",
     ],
-    mockType: "youtube",
+    mockType: "webpage",
+  },*/
+  {
+    id: "codegen",
+    title: "CodeGen — AI Browser IDE",
+    subtitle: "In-Browser Full-Stack IDE with WebContainers",
+    category: "Full Stack",
+    year: "2025",
+    description:
+      "Full-stack AI-driven IDE running entirely in the browser. Features CodeMirror 6 with AI completions, in-browser Node.js runtime via WebContainer API, and full codebase agent editing.",
+    fullDescription:
+      "A production-quality in-browser development environment inspired by Cursor and Bolt. Combines CodeMirror 6 with context-aware AI inline completions, in-browser Node.js execution via WebContainers, an AI agent with filesystem tools, and real-time state synchronization powered by Convex.",
+    metrics: [
+      { label: "Runtime", value: "In-Browser" },
+      { label: "State Sync", value: "<50ms Realtime" },
+      { label: "Editor Engine", value: "CodeMirror 6" },
+    ],
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Convex",
+      "WebContainer",
+      "Tailwind CSS",
+    ],
+    links: {
+      live: "https://codegenlive.vercel.app",
+      github: "https://github.com/Anindya4/CodeGen",
+    },
+    gridSpan: {
+      desktop: "col-span-12 lg:col-span-6",
+      height: "min-h-[440px]",
+    },
+    accentColor: "#6C47FF",
+    featured: false,
+    status: "Live Production",
+    deliverables: [
+      "WebContainer In-Browser Runtime",
+      "Multi-File AI Coding Agent",
+      "CodeMirror 6 AI Completions",
+      "Convex Realtime Database Sync",
+    ],
+    mockType: "webpage",
   },
 ];
 

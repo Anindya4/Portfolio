@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ExternalLink } from 'lucide-react';
 import { Project } from '../data/portfolioData';
-import { FootballVisionMock, PlantDiseaseMock, ScraperMock, YouTubeChatbotMock } from './ProjectCardMocks';
+import { ProjectCardMock } from './ProjectCardMocks';
 import { GithubIcon, ExternalLinkIcon } from "../icons";
 
 interface ProjectModalProps {
@@ -38,21 +38,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
   }, [onClose]);
 
   if (!project) return null;
-
-  const renderMock = () => {
-    switch (project.mockType) {
-      case 'football':
-        return <FootballVisionMock />;
-      case 'plant':
-        return <PlantDiseaseMock />;
-      case 'scraper':
-        return <ScraperMock />;
-      case 'youtube':
-        return <YouTubeChatbotMock />;
-      default:
-        return <FootballVisionMock />;
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -130,7 +115,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 </div>
               ) : (
-                renderMock()
+                <ProjectCardMock project={project} />
               )}
             </div>
 

@@ -2,14 +2,14 @@ import React, { useState, useRef, useCallback, memo } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { ArrowUpRight, FolderGit2, ArrowRight } from 'lucide-react';
 import { Project, PROJECTS_DATA } from '../data/portfolioData';
-import { FootballVisionMock, PlantDiseaseMock, ScraperMock, YouTubeChatbotMock } from './ProjectCardMocks';
+import { ProjectCardMock } from './ProjectCardMocks';
 import { ProjectModal } from './ProjectModal';
 import { ProjectArchiveModal } from './ProjectArchiveModal';
 import { FolderGit2Icon } from "../icons/FolderGit2Icon";
 interface ProjectCardProps {
   project: Project;
   onSelect: () => void;
-  renderMock: (mockType: string) => React.ReactNode;
+  isCustomCategory?: boolean;
 }
 
 const cardVariants: Variants = {
@@ -24,9 +24,18 @@ const cardVariants: Variants = {
   },
 };
 
-const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock }) => {
+const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, isCustomCategory = false }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+
+  // When a custom category is selected, use a balanced 2-column layout (6 + 6 out of 12)
+  const desktopSpan = isCustomCategory
+    ? 'col-span-12 lg:col-span-6'
+    : project.gridSpan.desktop;
+
+  const cardHeight = isCustomCategory
+    ? 'min-h-[440px]'
+    : (project.gridSpan.height || 'min-h-[380px]');
 
   // Direct GPU CSS variable manipulation (0 React re-renders)
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -52,7 +61,7 @@ const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onSelect}
-      className={`group relative ${project.gridSpan.desktop} ${project.gridSpan.height || "min-h-[380px]"} bento-card cursor-pointer flex flex-col justify-between p-6 sm:p-8 overflow-hidden`}
+      className={`group relative ${desktopSpan} ${cardHeight} bento-card cursor-pointer flex flex-col justify-between p-6 sm:p-8 overflow-hidden`}
     >
       {/* Ultra-soft feathered micro cursor glow */}
       <div
@@ -103,7 +112,7 @@ const ProjectBentoCard = memo<ProjectCardProps>(({ project, onSelect, renderMock
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               </div>
             ) : (
-              renderMock(project.mockType || "football")
+              <ProjectCardMock project={project} />
             )}
           </div>
         </div>
@@ -196,21 +205,6 @@ export const BentoGrid = () => {
         return p.category === selectedCategory;
       });
 
-  const renderCardMock = useCallback((mockType: string) => {
-    switch (mockType) {
-      case 'football':
-        return <FootballVisionMock />;
-      case 'plant':
-        return <PlantDiseaseMock />;
-      case 'scraper':
-        return <ScraperMock />;
-      case 'youtube':
-        return <YouTubeChatbotMock />;
-      default:
-        return null;
-    }
-  }, []);
-
   return (
     <section
       id="projects"
@@ -263,7 +257,7 @@ export const BentoGrid = () => {
                   key={project.id}
                   project={project}
                   onSelect={() => setActiveModalProject(project)}
-                  renderMock={renderCardMock}
+                  isCustomCategory={selectedCategory !== 'All'}
                 />
               ))}
             </motion.div>
