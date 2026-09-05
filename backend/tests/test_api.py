@@ -287,7 +287,7 @@ def test_contact_malformed_json_returns_422():
     
 
 # ---------------------------------------------------------------------------
-# CORES
+# CORS
 # ---------------------------------------------------------------------------
 def test_contact_allows_configured_cors_origin():
     response = client.options(
@@ -300,3 +300,32 @@ def test_contact_allows_configured_cors_origin():
 
     assert response.status_code == 200
     assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+
+
+@pytest.mark.parametrize("origin", [
+    "http://localhost:5173",
+    "https://anindyasnandi.vercel.app",
+])
+def test_contact_allows_additional_configured_origins(origin):
+    response = client.options(
+        "/contact",
+        headers={
+            "Origin": origin,
+            "Access-Control-Request-Method": "POST",
+        },
+    )
+
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == origin
+
+
+def test_contact_disallows_unauthorized_cors_origin():
+    response = client.options(
+        "/contact",
+        headers={
+            "Origin": "https://unauthorized-domain.com",
+            "Access-Control-Request-Method": "POST",
+        },
+    )
+
+    assert response.status_code == 400

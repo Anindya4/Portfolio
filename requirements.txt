@@ -1,6 +1,5 @@
 fastapi
 uvicorn
-resend
 pydantic-settings
 python-dotenv
 httpx

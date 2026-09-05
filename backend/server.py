@@ -1,6 +1,7 @@
 import os
 import ssl
 import httpx
+import asyncio
 import smtplib
 from email.message import EmailMessage
 from email.utils import formataddr
@@ -22,12 +23,15 @@ redis = Redis(
     token=os.getenv("KV_REST_API_TOKEN")
 )
 
+default_origins = (
+    "http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173,https://anindyasnandi.vercel.app"
+)
+raw_origins = os.getenv("ALLOWED_ORIGINS") or os.getenv("FRONTEND_ORIGIN",) or default_origins
+allowed_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["POST"],
     allow_headers=["Content-Type"],
@@ -153,6 +157,10 @@ def send_email(data: ContactData):
 def root():
     return f"Running server..."
 
+@app.get("/health")
+def health():
+    return {"status":"okay"}
+
 @app.post("/contact")
 async def send_contact_data(data: ContactData, request: Request):
     client_ip = request.client.host if request.client else "127.0.0.1"
@@ -179,7 +187,7 @@ async def send_contact_data(data: ContactData, request: Request):
         )
     
     try:
-        send_email(data=data)
+        await asyncio.to_thread(send_email, data=data)
     except RuntimeError:
         raise HTTPException(
             status_code=500,
@@ -187,4 +195,3 @@ async def send_contact_data(data: ContactData, request: Request):
         )
         
     return {'success': True}
-
