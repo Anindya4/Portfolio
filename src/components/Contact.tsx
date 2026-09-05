@@ -19,7 +19,7 @@ import {
 } from "../icons";
 
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";  //for backend
+const API_BASE_URL = import.meta.env.VITE_API_URL || "";  //for backend
 
 
 export const Contact = () => {
