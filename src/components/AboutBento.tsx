@@ -6,6 +6,7 @@ import {
 } from "../data/portfolioData";
 import { GlowCard } from "./GlowCard";
 import { ClockIcon, CompassIcon, GraduationCapIcon, GlobeIcon } from "../icons";
+import { AnalogClock } from "./AnalogClock";
 
 export const AboutBento = () => {
   const [time, setTime] = useState<string>("");
@@ -66,7 +67,7 @@ export const AboutBento = () => {
                 reliable engineering systems."
               </h3>
 
-              <div className="space-y-2 text-sm text-zinc-300 leading-relaxed">
+              <div className="space-y-2 text-sm text-[#f4f0e5] leading-relaxed">
                 {PERSONAL_INFO.bio.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
@@ -108,7 +109,7 @@ export const AboutBento = () => {
           </GlowCard>
 
           {/* Card 2: Live Local Time & Availability (Spans 5 cols) */}
-          <GlowCard className="col-span-12 lg:col-span-5 self-start p-6 sm:p-8 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
+          <GlowCard className="col-span-12 lg:col-span-5  p-6 sm:p-8 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
                 <span className="flex items-center gap-2">
@@ -128,6 +129,7 @@ export const AboutBento = () => {
                     Indian Standard Time (IST / UTC+5:30) &bull; India
                   </span>
                 </div>
+                <AnalogClock />
               </div>
             </div>
 

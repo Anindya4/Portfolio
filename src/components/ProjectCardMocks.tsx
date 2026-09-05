@@ -8,9 +8,13 @@ export const FootballVisionMock = () => {
       <div className="flex items-center justify-between pb-2 border-b border-white/5 text-[11px] text-zinc-500">
         <div className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 animate-pulse" />
-          <span className="text-zinc-300 font-sans font-medium">YOLOv5 &bull; Match Vision Engine</span>
+          <span className="text-zinc-300 font-sans font-medium">
+            YOLOv5 &bull; Match Vision Engine
+          </span>
         </div>
-        <span className="px-2 py-0.5 rounded bg-white/5 text-zinc-400 text-[10px]">32.4 FPS &bull; CUDA</span>
+        <span className="px-2 py-0.5 rounded bg-white/5 text-zinc-400 text-[10px]">
+          32.4 FPS &bull; CUDA
+        </span>
       </div>
 
       {/* Visual Pitch Frame with Bounding Boxes */}
@@ -22,28 +26,40 @@ export const FootballVisionMock = () => {
 
         {/* Entity Bounding Box 1: Team A Player */}
         <div className="absolute top-4 left-6 border border-emerald-400 bg-emerald-500/15 rounded p-1 text-[9px] shadow-sm">
-          <span className="text-emerald-300 font-bold block">Player #08 [Team A]</span>
-          <span className="text-emerald-400/80 text-[8px]">conf: 0.984 &bull; speed: 21km/h</span>
+          <span className="text-emerald-300 font-bold block">
+            Player #08 [Team A]
+          </span>
+          <span className="text-emerald-400/80 text-[8px]">
+            conf: 0.984 &bull; speed: 21km/h
+          </span>
         </div>
 
         {/* Entity Bounding Box 2: Ball Track */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 border border-amber-300 bg-amber-400/20 rounded p-1 text-[9px]">
-          <span className="text-amber-200 font-bold block">Ball [Possession: Team A]</span>
-          <span className="text-amber-300/80 text-[8px]">coord: (104.2, 45.8)</span>
+          <span className="text-amber-200 font-bold block">
+            Ball [Possession: Team A]
+          </span>
+          <span className="text-amber-300/80 text-[8px]">
+            coord: (104.2, 45.8)
+          </span>
         </div>
 
         {/* Entity Bounding Box 3: Team B Defender */}
         <div className="absolute top-6 right-8 border border-sky-400 bg-sky-500/15 rounded p-1 text-[9px]">
-          <span className="text-sky-300 font-bold block">Player #04 [Team B]</span>
-          <span className="text-sky-400/80 text-[8px]">conf: 0.971 &bull; K-Means: #2</span>
-        </div>
-
-        <div className="z-10 flex items-center justify-between text-[10px] text-zinc-400 bg-black/60 px-2 py-1 rounded backdrop-blur-sm mt-auto border border-white/5">
-          <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> K-Means Color Signature: Active
+          <span className="text-sky-300 font-bold block">
+            Player #04 [Team B]
           </span>
-          <span className="text-zinc-300">22 Players Tracked</span>
+          <span className="text-sky-400/80 text-[8px]">
+            conf: 0.971 &bull; K-Means: #2
+          </span>
         </div>
+      </div>
+      <div className="z-10 flex items-center justify-between text-[10px] text-zinc-400 bg-black/60 px-2 py-1 rounded backdrop-blur-sm mt-auto border border-white/5">
+        <span className="flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> K-Means
+          Color Signature: Active
+        </span>
+        <span className="text-zinc-300">22 Players Tracked</span>
       </div>
 
       <div className="flex items-center justify-between text-[10px] text-zinc-500 pt-1.5 border-t border-white/5">

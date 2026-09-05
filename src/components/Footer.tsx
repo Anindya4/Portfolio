@@ -1,10 +1,10 @@
-import React from 'react';
-import { ArrowUp, Terminal, Heart } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import { FaHeart } from "react-icons/fa6";
+import { ArrowUp, Terminal, Heart } from "lucide-react";
+import { PERSONAL_INFO } from "../data/portfolioData";
 
 export const Footer = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -15,14 +15,22 @@ export const Footer = () => {
             <span className="w-6 h-6 rounded-md bg-white/5 border border-white/10 flex items-center justify-center text-zinc-300">
               <Terminal className="w-3 h-3" />
             </span>
-            <span className="text-zinc-300 font-sans font-medium">{PERSONAL_INFO.name}</span>
+            <span className="text-zinc-300 font-sans font-medium">
+              {PERSONAL_INFO.name}
+            </span>
             <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-400">&copy; {new Date().getFullYear()} All rights reserved.</span>
+            <span className="text-zinc-400">
+              &copy; {new Date().getFullYear()} All rights reserved.
+            </span>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="hidden sm:inline-block text-zinc-400">
-              Built with React, Vite &amp; Tailwind
+            <span className=" hidden sm:inline-block text-zinc-400">
+              Built with{" "}
+              <FaHeart
+                size={16}
+                className="inline-flex text-[#f00000] animate-bounce"
+              />
             </span>
 
             <button
