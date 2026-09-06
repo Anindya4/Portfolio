@@ -158,8 +158,12 @@ def root():
     return f"Running server..."
 
 @app.get("/health")
-def health():
-    return {"status":"okay"}
+def health(request: Request):
+    print("CLIENT:", request.client.host if request.client else None)
+    print("X-Forwarded-For:", request.headers.get("x-forwarded-for"))
+    print("X-Real-IP:", request.headers.get("x-real-ip"))
+    print("X-Vercel-Forwarded-For:", request.headers.get("x-vercel-forwarded-for"))
+    return {"status": "okay"}
 
 @app.post("/contact")
 async def send_contact_data(data: ContactData, request: Request):
