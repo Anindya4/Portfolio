@@ -1,5 +1,43 @@
-node_modules
-dist
-CV
+# Dependencies
+node_modules/
+
+# Production Build
+dist/
+dist-ssr/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+*.env
+
+# Python Virtual Environments
+env/
+venv/
+.venv/
+ENV/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Editor & OS Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+
+# Project Specific Ignored Files
+CV/
 new_project_temp.md
 test-img/
+server2.py
+backend/server2.py
+src/icons/HOVER_ANIMATION_GUIDE.md
+HOVER_ANIMATION_GUIDE.md
+.vercel

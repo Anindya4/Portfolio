@@ -16,11 +16,11 @@ export const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Resume', href: '#resume' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Capabilities', href: '#capabilities' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Resume", href: "#resume" },
+    { name: "Projects", href: "#projects" },
+    { name: "Capabilities", href: "#capabilities" },
+    // { name: 'Experience', href: '#experience' }, //TODO: IN FUTURE
+    { name: "Contact", href: "#contact" },
   ];
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -87,7 +87,8 @@ export const Navbar = () => {
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, "#contact")}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-950 hover:bg-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+                draggable="false"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-950 hover:bg-white transition-transform will-change-transform hover:scale-[1.05] active:scale-[0.98]"
               >
                 <span>Get in Touch</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />

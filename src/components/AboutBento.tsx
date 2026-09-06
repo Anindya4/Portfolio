@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Clock, Globe, Compass, GraduationCap } from "lucide-react";
 import {
   CAPABILITIES,
   PERSONAL_INFO,
   EDUCATION_DATA,
 } from "../data/portfolioData";
 import { GlowCard } from "./GlowCard";
+import { ClockIcon, CompassIcon, GraduationCapIcon, GlobeIcon } from "../icons";
+import { AnalogClock } from "./AnalogClock";
 
 export const AboutBento = () => {
   const [time, setTime] = useState<string>("");
@@ -53,7 +54,7 @@ export const AboutBento = () => {
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
                 <span className="flex items-center gap-2">
-                  <Compass className="w-4 h-4 text-zinc-400" />
+                  <CompassIcon className="text-[#e2464e]" />
                   <span className="text-sm">
                     Engineering &amp; Research Philosophy
                   </span>
@@ -66,7 +67,7 @@ export const AboutBento = () => {
                 reliable engineering systems."
               </h3>
 
-              <div className="space-y-2 text-sm text-zinc-300 leading-relaxed">
+              <div className="space-y-2 text-sm text-[#f4f0e5] leading-relaxed">
                 {PERSONAL_INFO.bio.map((paragraph, idx) => (
                   <p key={idx}>{paragraph}</p>
                 ))}
@@ -108,11 +109,11 @@ export const AboutBento = () => {
           </GlowCard>
 
           {/* Card 2: Live Local Time & Availability (Spans 5 cols) */}
-          <GlowCard className="col-span-12 lg:col-span-5 self-start p-6 sm:p-8 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
+          <GlowCard className="col-span-12 lg:col-span-5  p-6 sm:p-8 min-h-[380px] flex flex-col justify-between bg-[#13151a]">
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
                 <span className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-zinc-400" />
+                  <ClockIcon className=" text-[#e2464e]" />
                   <span className="text-sm">Local Time &amp; Availability</span>
                 </span>
                 <span className="text-zinc-500">02</span>
@@ -123,22 +124,23 @@ export const AboutBento = () => {
                   {time || "09:30:00 AM"}
                 </div>
                 <div className="text-xs font-mono text-zinc-400 mt-2 flex items-center gap-2">
-                  <Globe className="w-3.5 h-3.5 text-zinc-500" />
+                  <GlobeIcon className="text-[#81a1d0]" />
                   <span>
                     Indian Standard Time (IST / UTC+5:30) &bull; India
                   </span>
                 </div>
+                <AnalogClock />
               </div>
             </div>
 
             <div className="p-4 rounded-xl bg-zinc-900/60 border border-white/5 space-y-2 mt-4">
               <div className="flex items-center gap-2 text-xs font-medium text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                 <span>Actively Seeking Roles</span>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Open for full-time Machine Learning Engineer, AI Developer, and
-                Software Development Engineer (SDE) roles.
+              <p className="text-xs text-[#e0e0d2] leading-relaxed">
+                Open for Inernships / Full-Time Machine Learning Engineer, AI
+                Developer, and Software Development Engineer (SDE) roles.
               </p>
             </div>
           </GlowCard>
@@ -147,7 +149,7 @@ export const AboutBento = () => {
           <GlowCard className="col-span-12 p-6 sm:p-8">
             <div className="flex items-center justify-between text-xs font-mono text-zinc-400 mb-4 pb-3 border-b border-white/5">
               <span className="flex items-center gap-2">
-                <GraduationCap className="w-4 h-4 text-zinc-400" />
+                <GraduationCapIcon className="text-[#e2464e]" />
                 <span className="text-base">
                   Academic Degrees &amp; Performance
                 </span>

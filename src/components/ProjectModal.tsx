@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, ExternalLink } from 'lucide-react';
 import { Project } from '../data/portfolioData';
-import { FootballVisionMock, PlantDiseaseMock, ScraperMock, YouTubeChatbotMock } from './ProjectCardMocks';
-import { GithubIcon } from './Icons';
+import { ProjectCardMock } from './ProjectCardMocks';
+import { GithubIcon, ExternalLinkIcon } from "../icons";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -39,21 +39,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
   if (!project) return null;
 
-  const renderMock = () => {
-    switch (project.mockType) {
-      case 'football':
-        return <FootballVisionMock />;
-      case 'plant':
-        return <PlantDiseaseMock />;
-      case 'scraper':
-        return <ScraperMock />;
-      case 'youtube':
-        return <YouTubeChatbotMock />;
-      default:
-        return <FootballVisionMock />;
-    }
-  };
-
   return (
     <AnimatePresence>
       <div
@@ -81,8 +66,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           {/* Header Bar */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-zinc-950/50 flex-shrink-0">
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: project.accentColor }} />
-              <span className="uppercase font-semibold tracking-wider">{project.category}</span>
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: project.accentColor }}
+              />
+              <span className="uppercase font-semibold tracking-wider">
+                {project.category}
+              </span>
               <span className="text-zinc-600">&bull;</span>
               <span>{project.year}</span>
             </div>
@@ -125,7 +115,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 </div>
               ) : (
-                renderMock()
+                <ProjectCardMock project={project} />
               )}
             </div>
 
@@ -133,9 +123,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {project.metrics && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {project.metrics.map((metric, i) => (
-                  <div key={i} className="p-3.5 rounded-xl bg-zinc-900/50 border border-white/5">
-                    <div className="text-xl font-bold font-mono text-zinc-100">{metric.value}</div>
-                    <div className="text-xs text-zinc-400 font-medium">{metric.label}</div>
+                  <div
+                    key={i}
+                    className="p-3.5 rounded-xl bg-zinc-900/50 border border-white/5"
+                  >
+                    <div className="text-xl font-bold font-mono text-zinc-100">
+                      {metric.value}
+                    </div>
+                    <div className="text-xs text-zinc-400 font-medium">
+                      {metric.label}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -143,7 +140,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
             {/* Detailed Description & Implementation Overview */}
             <div className="space-y-2.5">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400">Technical Overview &amp; Architecture</h4>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                Technical Overview &amp; Architecture
+              </h4>
               <p className="text-sm text-zinc-300 leading-relaxed">
                 {project.fullDescription}
               </p>
@@ -152,10 +151,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             {/* Deliverables & Key Technical Highlights */}
             {project.deliverables && (
               <div className="space-y-3">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400">Key Deliverables &amp; Artifacts</h4>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                  Key Deliverables &amp; Artifacts
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {project.deliverables.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-zinc-300 bg-zinc-900/40 p-2.5 rounded-lg border border-white/5">
+                    <div
+                      key={i}
+                      className="flex items-center gap-2 text-xs text-zinc-300 bg-zinc-900/40 p-2.5 rounded-lg border border-white/5"
+                    >
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                       <span>{item}</span>
                     </div>
@@ -166,7 +170,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
             {/* Technology Stack Tags */}
             <div className="space-y-2.5">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400">Core Technologies &amp; Libraries</h4>
+              <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+                Core Technologies &amp; Libraries
+              </h4>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
@@ -183,18 +189,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
           {/* Footer Actions */}
           <div className="px-6 py-4 border-t border-white/5 bg-zinc-950/60 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
             <div className="text-xs text-zinc-500 font-mono">
-              Status: <span className="text-zinc-300">{project.status || 'Completed'}</span>
+              Status:{" "}
+              <span className="text-zinc-300">
+                {project.status || "Completed"}
+              </span>
             </div>
 
             <div className="flex items-center gap-3">
               {project.links.github && (
                 <a
                   href={project.links.github}
+                  draggable="false"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 border border-white/10 text-xs font-medium text-zinc-300 hover:text-white hover:scale-105 transition-transform will-change-transform hover:bg-zinc-800 active:scale-95 "
                 >
-                  <GithubIcon className="w-3.5 h-3.5" />
+                  <GithubIcon />
                   <span>GitHub Repository</span>
                 </a>
               )}
@@ -203,11 +213,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <a
                   href={project.links.live}
                   target="_blank"
+                  draggable="false"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-white hover:scale-105 transition-transform will-change-transform active:scale-95"
                 >
                   <span>Project Link</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLinkIcon className="text-emerald-600" />
                 </a>
               )}
             </div>
