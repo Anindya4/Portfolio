@@ -83,7 +83,7 @@ export const RESUME_LINKS = {
 
     pdfUrl: "/cv/A_S_NANDI_DS_ML.pdf",
     gdriveUrl:
-      "https://drive.google.com/file/d/1DIEgK5foht1J4lWWWNLJORzmhpOKaerp/view?usp=sharing",
+      "https://drive.google.com/file/d/1PhGzpH2ym9CsBTx-DaulHdqWrsySoR_5/view?usp=sharing",
     highlights: [
       "Python & SQL",
       "PyTorch",
@@ -101,7 +101,7 @@ export const RESUME_LINKS = {
       "Hands-on experience with FastAPI, React, and Docker, building backend APIs, modern frontends, and data-driven systems.",
     pdfUrl: "/cv/A_S_NANDI_SDE.pdf",
     gdriveUrl:
-      "https://drive.google.com/file/d/1joi7cVsOtoIxDbrXuSoS5pwO3rDjD0Pg/view?usp=sharing",
+      "https://drive.google.com/file/d/1wN4s7Ht7TwPrs6EYnDZLPPKdlANOIUfo/view?usp=sharing",
     highlights: [
       "Docker",
       "FastAPI & REST",
