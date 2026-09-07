@@ -41,3 +41,25 @@ backend/server2.py
 src/icons/HOVER_ANIMATION_GUIDE.md
 HOVER_ANIMATION_GUIDE.md
 .vercel
+
+# LaTeX Build Artifacts
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.dvi
+
+# Ignore non-.tex files in public/cv/
+
+
+latex/
+

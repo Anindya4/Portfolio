@@ -81,7 +81,7 @@ export const RESUME_LINKS = {
     description:
       "Hands-on experience with Data Engineering, Deep Learning and Computer Vision, using Python, SQL, PyTorch, AWS, and Snowflake.",
 
-    pdfUrl: "/cv/A_S_NANDI_DS+ML.pdf",
+    pdfUrl: "/cv/A_S_NANDI_DS_ML.pdf",
     gdriveUrl:
       "https://drive.google.com/file/d/1DIEgK5foht1J4lWWWNLJORzmhpOKaerp/view?usp=sharing",
     highlights: [
@@ -105,7 +105,7 @@ export const RESUME_LINKS = {
     highlights: [
       "Docker",
       "FastAPI & REST",
-      'Python',
+      "Python",
       "React.js & JavaScript",
       "Git & GitHub",
     ],
@@ -140,8 +140,8 @@ export const PROJECTS_DATA: Project[] = [
       "Matplotlib",
     ],
     links: {
-      live: "https://github.com/anindyanandi/football-vision-analytics",
-      github: "https://github.com/anindyanandi/football-vision-analytics",
+      live: "https://github.com/Anindya4/Football-Analysis",
+      github: "https://github.com/Anindya4/Football-Analysis",
     },
     gridSpan: {
       desktop: "col-span-12 lg:col-span-7",
@@ -246,25 +246,26 @@ export const PROJECTS_DATA: Project[] = [
     category: "Machine Learning",
     year: "2024",
     description:
-      "Deep learning crop disease classification achieving 98.17% accuracy using transfer learning, model benchmarking, and PyTorch optimization.",
+      "Deep learning grapevine leaf disease classification achieving 98.17% test accuracy using transfer learning with EfficientNet-B4 on 9,000+ images.",
     fullDescription:
-      "An agricultural AI diagnostics solution developed to classify multi-crop leaf diseases with high precision. By evaluating architectures (ResNet, VGG, MobileNet) and fine-tuning EfficientNet-B4 with PyTorch, the system achieved 98.17% validation accuracy with minimal computational overhead.",
+      "An agricultural AI diagnostics solution developed to classify grapevine leaf diseases with high precision. Fine-tuned an EfficientNet-B4 architecture using PyTorch and timm on 9,000+ images, achieving 98.17% test accuracy across Black Rot, Esca, Leaf Blight, and Healthy conditions with minimal computational overhead.",
     metrics: [
-      { label: "Validation Accuracy", value: "98.17%" },
+      { label: "Test Accuracy", value: "98.17%" },
       { label: "Model Architecture", value: "EfficientNet-B4" },
-      { label: "Classes Identified", value: "38+ Plant Types" },
+      { label: "Classes Identified", value: "4 Grapevine Classes" },
     ],
     tags: [
       "PyTorch",
       "EfficientNet-B4",
+      "timm",
       "Transfer Learning",
       "Scikit-Learn",
       "TorchVision",
       "Python",
     ],
     links: {
-      live: "https://github.com/anindyanandi/plant-leaf-disease-recognition",
-      github: "https://github.com/anindyanandi/plant-leaf-disease-recognition",
+      live: "https://github.com/Anindya4/Plant-leaf-disease-recognition-2",
+      github: "https://github.com/Anindya4/Plant-leaf-disease-recognition-2",
     },
     gridSpan: {
       desktop: "col-span-12 lg:col-span-5",
@@ -394,8 +395,8 @@ export const PROJECTS_DATA: Project[] = [
       "Pandas",
     ],
     links: {
-      live: "https://github.com/anindyanandi/autonomous-ai-web-scraper",
-      github: "https://github.com/anindyanandi/autonomous-ai-web-scraper",
+      live: "https://github.com/Anindya4/AI-Web-Scrapper",
+      github: "https://github.com/Anindya4/AI-Web-Scrapper",
     },
     gridSpan: {
       desktop: "col-span-12 lg:col-span-5",
@@ -525,7 +526,8 @@ export const PROJECTS_DATA: Project[] = [
       "Docker",
     ],
     links: {
-      github: "https://github.com/Anindya4",
+      github: "https://github.com/Anindya4/Zomato-data-datapipeline",
+      live: "https://github.com/Anindya4/Zomato-data-datapipeline",
     },
     gridSpan: {
       desktop: "col-span-12 lg:col-span-6",
@@ -568,8 +570,8 @@ export const PROJECTS_DATA: Project[] = [
       "Python",
     ],
     links: {
-      live: "https://github.com/anindyanandi/youtube-transcript-ai-chatbot",
-      github: "https://github.com/anindyanandi/youtube-transcript-ai-chatbot",
+      live: "https://github.com/Anindya4/YouTube-Chatbot-using-LangChain",
+      github: "https://github.com/Anindya4/YouTube-Chatbot-using-LangChain",
     },
     gridSpan: {
       desktop: "col-span-12 lg:col-span-7",
@@ -716,6 +718,7 @@ export const PROJECTS_DATA: Project[] = [
   },
 ];
 
+// ======================CAPABILITIES====================================
 export const CAPABILITIES = [
   {
     category: "Data Engineering & LLMs",
