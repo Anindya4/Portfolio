@@ -62,7 +62,7 @@ export const PERSONAL_INFO = {
     { label: "M.Sc. CS CGPA", value: "8.79" },
     { label: "B.Sc. Math CGPA", value: "8.90" },
     { label: "Core AI Projects", value: "04" },
-    { label: "Leetcode Probelm Solved", value: "150+" },
+    { label: "DSA problems Solved", value: "160+" },
   ],
   bio: [
     "I am a Master's student in Computer Science with a strong academic foundation in Mathematics, with an 8.90 undergraduate CGPA and 8.79 postgraduate CGPA. My interests and experience span Machine Learning, Deep Learning, Data Engineering, and Full-Stack Systems.",
